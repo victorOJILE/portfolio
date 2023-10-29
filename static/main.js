@@ -155,6 +155,14 @@ emailScript.onload = function() {
    })
    .then(function(response) {
     submit.innerText = 'Sent!';
+    
+    analytics.logEvent('message', {
+     name,
+     message,
+     subject: subject || 'New message from your portfolio',
+     client: email
+    });
+    
     alert('Message sent. Thanks for reaching out!');
     
     submit.addEventListener('click', function() {
