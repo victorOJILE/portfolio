@@ -272,7 +272,7 @@ const project_tools = {
 const projects = [
  {
   name: 'Spider',
-  main_img: '/static/images/Spider.png',
+  main_img: 'static/images/Spider.png',
   alt_text: 'Spider app',
   id: 'spider-app',
   description: ['Automatic design to HTML conversion', 'Responsive CSS Styling', 'Code Generation', 'SEO Optimization Features', 'Effortless Collaboration'],
@@ -282,7 +282,7 @@ const projects = [
  },
  {
   name: 'SwiftEarn',
-  main_img: '/static/images/SwiftEarn.png',
+  main_img: 'static/images/SwiftEarn.png',
   alt_text: 'SwiftEarn affiliate marketing website',
   id: 'swiftearn-app',
   description: ['Affiliate marketing website', 'Discover high-demand products to promote', 'Promote multiple products simultaneously', 'Get paid weekly for your sales'],
@@ -292,7 +292,7 @@ const projects = [
  },
  {
   name: 'Sportsreal',
-  main_img: '/static/images/Sportsreal-image.PNG',
+  main_img: 'static/images/Sportsreal-image.PNG',
   alt_text: 'Image showing sportsreal overview',
   id: 'sportsreal-link',
   description: ["Get the latest football news update.", "Football fixtures, results and scores.", "Up to date league tables and information.", "Transfer window updates. etc."],
@@ -302,7 +302,7 @@ const projects = [
  },
  {
   name: 'Financial Markets Charts',
-  main_img: '/static/images/Chart-img.PNG',
+  main_img: 'static/images/Chart-img.PNG',
   alt_text: 'Financial markets chart image',
   id: 'FM-image-link',
   description: ["Get real-time exchange rate for currency pairs, cryptocurrency and stocks.", "Historical data for currency pairs, cryptocurrency and stocks.", "List of top gaining or losing stocks today. etc."],
@@ -312,7 +312,7 @@ const projects = [
  },
  {
   name: 'The Tetris game',
-  main_img: '/static/images/tetris.png',
+  main_img: 'static/images/tetris.png',
   alt_text: 'Tetris game',
   id: 'tetris',
   description: [],
@@ -322,17 +322,17 @@ const projects = [
  },
  {
   name: 'Spotify Login Page Clone',
-  main_img: '/static/images/spotify-signup-page.PNG',
+  main_img: 'static/images/spotify-signup-page.PNG',
   alt_text: 'Spotify desktop sign up page',
   id: 'spotify-sign-up',
   description: [],
   web_technologies: project_tools.web_trio,
   git_link: 'https://github.com/victorOJILE/spotify-desktop-signup-page-clone',
-  view_link: '/projects/spotify-signup.html'
+  view_link: 'projects/spotify-signup.html'
  },
  {
   name: 'HotForex Landing Page Clone',
-  main_img: '/static/images/Hotforex_img.PNG',
+  main_img: 'static/images/Hotforex_img.PNG',
   alt_text: 'HotForex home page clone',
   id: 'hotforex-demo-link',
   description: [],
@@ -344,36 +344,36 @@ const projects = [
 
 const other_projects = [
  {
-  href: './projects/calendar.html',
-  imgsrc: '/static/images/calendar.png',
+  href: 'projects/calendar.html',
+  imgsrc: 'static/images/calendar.png',
   alt: 'Calendar',
   innerText: 'Calendar',
   color: 'reddish'
  },
  {
-  href: './projects/calculator.html',
-  imgsrc: '/static/images/calculator.png',
+  href: 'projects/calculator.html',
+  imgsrc: 'static/images/calculator.png',
   alt: 'Calculator',
   innerText: 'Calculator',
   color: 'greenish'
  },
  {
-  href: './projects/number-to-word.html',
-  imgsrc: '/static/images/number_to_word.png',
+  href: 'projects/number-to-word.html',
+  imgsrc: 'static/images/number_to_word.png',
   alt: 'Number to word converter',
   innerText: 'Number to word',
   color: 'bluish'
  },
  {
-  href: './projects/binary-conv.html',
-  imgsrc: '/static/images/bin_dec_hex.png',
+  href: 'projects/binary-conv.html',
+  imgsrc: 'static/images/bin_dec_hex.png',
   alt: 'BIN DEC HEX Converter',
   innerText: 'BIN DEC HEX Converter',
   color: 'greenish'
  },
  {
-  href: './projects/analog-clock.html',
-  imgsrc: '/static/images/analog_clock.png',
+  href: 'projects/analog-clock.html',
+  imgsrc: 'static/images/analog_clock.png',
   alt: 'Analog Clock',
   innerText: 'Analog Clock',
   color: 'bluish'
