@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8" />
+ <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+ <title>BIN DEC HEX CONVERTER - Ojile Victor</title>
+ <meta name="author" content="Ojile Victor" />
+ <style>
+  * {
+   box-sizing: border-box;
+  }
+
+  body {
+   margin: 0px;
+   background-color: #2D3F67;
+   padding: 1rem;
+   color: #6A7692;
+  }
+
+  h1 {
+   font-size: medium;
+   font-weight: 600;
+   text-align: center;
+   padding-bottom: 8;
+   margin-bottom: 1.4rem;
+   border: 3px crimson;
+   border-style: none none ridge none;
+  }
+
+  label {
+   font-size: 0.75rem;
+   font-weight: 500;
+  }
+
+  main {
+   width: 100%;
+   max-width: 500px;
+   margin: 0 auto;
+   border-radius: 8px;
+   background-color: white;
+   padding: 5%;
+  }
+
+  input {
+   width: 90%;
+   padding: 0.5rem;
+   margin-top: 0.2rem;
+   border: 1px solid #2D3F67;
+   border-radius: 10px /10px;
+   font-size: 0.75rem;
+   font-weight: 500;
+  }
+
+  input:focus {
+   background-color: lemonchiffon;
+  }
+
+  input::-webkit-input-placeholder {
+   font-weight: 400;
+  }
+
+  input:-ms-input-placeholder {
+   font-weight: 400;
+  }
+
+  input::placeholder {
+   font-weight: 400;
+  }
+
+  textarea {
+   width: 90%;
+   height: 30vh;
+   min-height: 200px;
+   max-height: 300px;
+  }
+ </style>
+</head>
+
+<body>
+ <main>
+  <h1>
+   BIN DEC HEX CONVERTER
+  </h1>
+  <label for="binary">
+   Binary:</label><br>
+  <input id="binary" type="number" placeholder="Enter single binary code here...">
+  <br>
+  <br>
+  <label for="decimal">
+   Decimal:</label><br>
+  <input id="decimal" type="number" placeholder="Enter valid decimal number" />
+  <br><br>
+  <label for="hexD">Hexadecimal:</label><br>
+  <input type="text" id="hexD">
+  <br><br>
+  <label for="text">Text:</label><br>
+  <input type="text" id="text">
+  <br><br>
+  <label for="txtarea">Binary field: </label><br>
+  <textarea id="txtarea" rows="6" cols="20" placeholder="Enter multiple binary code here..."></textarea></textarea>
+ </main>
+</body>
+<script>
+ window.addEventListener('DOMContentLoaded', function() {
+  const binary = document.getElementById('binary');
+  const decimal = document.getElementById('decimal');
+  const hexD = document.getElementById('hexD');
+  const text = document.getElementById('text');
+  const textarea = document.getElementById('txtarea');
+  const hex = ['1010', '1011', '1100', '1101', '1110', '1111'];
+  const hexVal = ['A', 'B', 'C', 'D', 'E', 'F'];
+  const asciiTable = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ' ', '!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=', '>', '?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~'];
+
+  // binary input format
+  binary.addEventListener('keyup', function() {
+   let val = this.value;
+   let len = val.length;
+   let initialValue = val.slice(len - 1, len);
+   let curVal = this.value;
+   if (initialValue == '' || initialValue.match(/0|1/)) {
+    curVal += initialValue;
+   } else {
+    this.value = val.slice(0, len - 1);
+   }
+  });
+
+  // calculate binary to decimal
+  function binToDeci(binVal, toHexa) {
+   let len = binVal.length,
+    arr = [],
+    len1 = len - 1;
+   for (let i = 0; i < len; i++) {
+    arr.push(binVal[i] * 2 ** len1);
+    --len1;
+   }
+   if (arr.join('').length == 1 && arr.join('') != 0) {
+    return '1';
+   }
+   return Number(arr.join('')) == 0 ? toHexa ? '' : '0' : arr.reduce((a, b) => a + b);
+  }
+
+  binary.addEventListener('keyup', function() {
+   decimal.value = binToDeci(this.value);
+   decToHex(); // decimal to hexadecimal
+  });
+
+  // Decimal to binary
+  function decToBin(decimalNum) {
+   let arr, reminder = [],
+    firstVal = Math.floor(decimalNum / 2);
+   arr = firstVal;
+   let div = decimalNum - (firstVal * 2);
+   reminder.unshift(div);
+   while (arr != 0) {
+    let nextVal = Math.floor(arr / 2);
+    let divi = arr - (nextVal * 2);
+    arr = nextVal;
+    reminder.unshift(divi);
+   }
+   return reminder.join('');
+  }
+
+  decimal.addEventListener('keyup', function() {
+   binary.value = decToBin(this.value);
+   decToHex(); // decimal to hexadecimal
+  });
+
+  // Decimal to hexadecimal
+  function decToHex() {
+   let ex = decimal.value;
+   let ar = [10, 11, 12, 13, 14, 15];
+   let fin = [],
+    reminder = [];
+   let firstVal = Math.floor(ex / 16);
+   let rem = ex - (firstVal * 16);
+   ar.includes(rem) ? fin.push(hexVal[ar.indexOf(rem)]) : fin.push(rem);
+
+   hexD.value = fin.join('');
+   while (firstVal) {
+    let nextVal = Math.floor(firstVal / 16);
+    let rem2 = firstVal - (nextVal * 16);
+    ar.includes(rem2) ? fin.unshift(hexVal[ar.indexOf(rem2)]) : fin.unshift(rem2);
+    firstVal = nextVal;
+   }
+   hexD.value = fin.join('');
+   text.value = ex > 126 || ex < 0 || ex == '' ? '' : asciiTable[ex];
+  }
+
+  text.addEventListener('keyup', function() {
+   let binValue = '';
+   for (let entity of text.value) {
+    let decimalValue = asciiTable.indexOf(entity);
+    decimalValue != -1 && (binValue += decToBin(decimalValue) + " ");
+   }
+   textarea.value = binValue;
+  });
+
+  textarea.addEventListener('keyup', function() {
+   let i, txt = this.value.split(' '),
+    ans = '';
+   for (i = 0; i < txt.length; i++) {
+    ans += asciiTable[binToDeci(txt[i])];
+   }
+   text.value = ans;
+  });
+ });
+</script>
+</body>
+
+</html>

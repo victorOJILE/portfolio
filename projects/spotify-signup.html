@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8" />
+ <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <meta name="author" content="Ojile Victor">
+ <title>Spotify Login - Ojile Victor</title>
+ <style>
+  * {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+  }
+
+  body {
+   background-color: rgba(35, 27, 63, 0.925);
+   font-family: 'Roboto', sans-serif;
+   position: relative;
+  }
+
+  a {
+   text-decoration: none;
+   color: initial;
+  }
+
+  button {
+   border: none;
+   background-color: inherit;
+   outline: none;
+  }
+
+  ul,
+  li {
+   margin: 0;
+  }
+
+  li {
+   list-style-type: none;
+  }
+
+  .hellip {
+   width: 6rem;
+   margin-left: 1rem;
+   position: relative;
+  }
+
+  .hellip button {
+   background-color: inherit;
+   border: none;
+   outline: none;
+   cursor: pointer;
+   font-size: 20px;
+   color: white;
+   margin: 1rem 0.2rem;
+   font-weight: 600;
+  }
+
+  .hellip-wrapper {
+   background-color: rgb(32, 32, 32);
+   padding: 4px 0;
+   border: 1px solid rgb(56, 56, 56);
+   width: 100%;
+   display: none;
+   position: absolute;
+  }
+
+  .first-div {
+   position: relative;
+  }
+
+  .first-div li {
+   background-color: inherit;
+  }
+
+  .hellip svg {
+   width: 0;
+   height: 0;
+  }
+
+  .first-div:hover,
+  .first-div:focus,
+  .hellip-child-dropdown li:hover {
+   background-color: rgb(51, 51, 51);
+  }
+
+  .first-div div:first-child,
+  .first-div li {
+   width: 100%;
+   text-align: center;
+   font-size: 12px;
+   color: rgb(224, 224, 224);
+   padding: 6px 10px;
+   display: inline-block;
+   width: 100%;
+  }
+
+  .hellip-child-dropdown {
+   display: none;
+   text-align: center;
+   border: 1px solid rgb(56, 56, 56);
+   color: rgb(224, 224, 224);
+   background-color: rgb(30, 30, 30);
+   padding: 4px 0px;
+   position: absolute;
+   top: -4px;
+   left: 100%;
+  }
+
+  .first-div:hover .hellip-child-dropdown {
+   display: inline-block;
+  }
+
+  .hellip-child-dropdown li {
+   display: flex;
+   justify-content: space-between;
+   padding-right: 25px;
+  }
+
+  .hellip-child-dropdown li span:first-child {
+   width: 50%;
+   padding-left: 25px;
+   padding-right: 25px;
+  }
+
+  .hellip-child-dropdown li span {
+   display: block;
+  }
+
+  .hellip-child-dropdown li span:last-child {
+   color: rgb(168, 168, 168);
+  }
+
+  .last-li {
+   width: 15rem;
+  }
+
+  .hr1 {
+   border: 1px none grey;
+   border-top: solid;
+  }
+
+  .show {
+   display: block;
+  }
+
+  .show-inline {
+   display: inline-block;
+  }
+
+
+
+  .wrapper1 {
+   height: 18rem;
+   top: 50vh;
+   margin-top: -25vh;
+  }
+
+  .first-btn {
+   margin: 1.5rem 0;
+   color: white;
+   background-color: rgb(56, 177, 82);
+  }
+
+  .wrapper2 {
+   background-color: rgb(14, 14, 14);
+   width: 100%;
+   max-width: 31rem;
+   min-width: 250px;
+   border-radius: 3px;
+   padding-bottom: 2rem;
+   position: absolute;
+   left: 50%;
+   margin-left: -15.5rem;
+   transition: 800ms;
+  }
+
+  .hide {
+   opacity: 0;
+   visibility: hidden;
+  }
+
+  .hide2 {
+   display: none;
+  }
+
+  .show-wrapper2 {
+   opacity: 1;
+   transform: scale(1);
+   visibility: visible;
+  }
+
+  .center {
+   margin: 0 auto;
+   width: 68%;
+  }
+
+  .logo2 {
+   width: 38%;
+   margin-top: 2.5rem;
+   margin-bottom: 0.5rem;
+  }
+
+  .logo {
+   width: 30%;
+   margin-top: 2rem;
+   margin-bottom: 0.5rem;
+  }
+
+  .header {
+   font-size: 14px;
+   color: white;
+   font-weight: 700;
+   margin: 7px 0;
+   text-align: center;
+   padding: 5px;
+  }
+
+  .disappear1 {
+   transform: translate(-100%);
+   opacity: 0;
+   visibility: hidden;
+  }
+
+  .disappear2 {
+   transform: scale(0.5);
+   opacity: 0.5;
+   visibility: hidden;
+  }
+
+  .error-msg {
+   background-color: rgb(233, 51, 51);
+   color: white;
+   font-size: 13px;
+   font-weight: 600;
+   display: block;
+   padding: 8px;
+   border: none;
+   line-height: 20px;
+   border-radius: 3px;
+   width: 68%;
+   margin: 0 auto;
+  }
+
+  .error-msg div {
+   display: inline-block;
+  }
+
+  .error-msg svg {
+   width: 0;
+  }
+
+  .input-class {
+   background-color: rgb(44, 44, 44);
+   display: flex;
+   justify-content: space-between;
+   align-items: stretch;
+   margin: 0.7rem auto;
+  }
+
+  input {
+   width: 80%;
+   padding: 0.8rem 0 0.8rem 0.6rem;
+   font-weight: 600;
+   background-color: inherit;
+   color: whitesmoke;
+   border: none;
+   outline: none;
+  }
+
+  input::placeholder {
+   font-weight: 500;
+   font-size: 12px;
+  }
+
+  input::-webkit-input-placeholder {
+   font-weight: 500;
+   font-size: 12px;
+  }
+
+  input:-ms-input-placeholder {
+   font-weight: 500;
+   font-size: 12px;
+  }
+
+  .view-togg-div {
+   color: white;
+   min-width: 2.5rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 0.9rem;
+  }
+
+  .reset-psw a,
+  .remember-div {
+   color: rgb(167, 167, 167);
+   font-size: small;
+   text-decoration: underline;
+   font-weight: 500;
+  }
+
+  .reset-psw a:hover,
+  .reset-psw a:focus {
+   color: white;
+  }
+
+  .remember-div {
+   text-decoration: none;
+   display: flex;
+   justify-content: space-between;
+   margin: 1.3rem 0;
+  }
+
+  .on-select {
+   width: 2.5rem;
+   height: 1.4rem;
+   background-color: black;
+   border: 2px solid rgb(40, 65, 65);
+   position: relative;
+   display: flex;
+   align-items: center;
+   border-top-left-radius: 50px;
+   border-bottom-left-radius: 50px;
+   border-top-right-radius: 50px;
+   border-bottom-right-radius: 50px;
+   transition: 500ms;
+  }
+
+  .trigger {
+   height: 1.4rem;
+   width: 1.4rem;
+   border-radius: 50%;
+   transform: scale(1.06);
+   background-color: grey;
+   cursor: pointer;
+   transition: 1s;
+  }
+
+  .trigger:active {
+   width: 1.5rem;
+  }
+
+  .trigger-click {
+   background-color: white;
+   position: absolute;
+   right: 0px;
+  }
+
+  .on-select-click {
+   border: none;
+   background-color: rgb(0, 158, 71);
+  }
+
+  .submit-button {
+   background-color: white;
+   text-align: center;
+   width: 100%;
+   font-size: 85%;
+   font-weight: 600;
+   text-transform: uppercase;
+   padding: 0.95rem;
+   border-radius: 40px 40px;
+  }
+
+  .submit-button:hover,
+  .submit-button:focus {
+   transform: scale(1.05);
+   font-size: 90%;
+  }
+
+  .wrapper2 .submit-button:active {
+   background-color: rgb(167, 167, 167);
+  }
+
+  .hr {
+   margin: 1.5rem 0rem;
+   border: 2px none rgb(117, 117, 117);
+   border-top-style: inset;
+   text-align: center;
+   position: relative;
+  }
+
+  .hr span {
+   position: absolute;
+   top: 0;
+   left: 42%;
+   transform: translateY(-50%);
+   background-color: rgb(14, 14, 14);
+   width: 3rem;
+   font-size: 14px;
+   padding: 4px;
+   color: rgb(167, 167, 167);
+  }
+
+  .continue-with>a {
+   padding: 0.55rem;
+   margin: 0.6rem 0;
+   border: 1px solid rgb(199, 199, 199);
+   border-radius: 45px 45px;
+   color: white;
+   font-size: 13px;
+   font-weight: 600;
+   cursor: default;
+  }
+
+  .continue-with>a:hover,
+  .continue-with>a:focus {
+   transform: scale(1.02);
+  }
+
+  .continue-with-name {
+   display: flex;
+   align-items: center;
+  }
+
+  .continue-with-name div:last-child {
+   width: 85%;
+   display: flex;
+   justify-content: center;
+  }
+
+  .continue-with-img {
+   width: 1.5rem;
+   margin-right: 4px;
+   border-radius: 50%;
+  }
+
+  .flex-gr {
+   flex-grow: 1;
+   text-align: center;
+  }
+
+  .signup-text a {
+   letter-spacing: 2px;
+   color: rgb(187, 187, 187);
+   margin: 1rem auto;
+   display: block;
+   text-align: center;
+   font-weight: 700;
+   font-size: 13px;
+  }
+
+  .signup-text a span {
+   color: white;
+   text-decoration: underline;
+   font-size: 0.9rem;
+   letter-spacing: 1px;
+  }
+
+  .settings {
+   letter-spacing: 2px;
+   border: none !important;
+   padding: 0;
+   text-align: center;
+   color: rgb(187, 187, 187) !important;
+   font-size: 10px !important;
+   margin: 2.5rem 0;
+  }
+
+  .settings:hover,
+  .settings:focus {
+   text-decoration: underline;
+  }
+
+  @media screen and (max-width: 410px) {
+   .header {
+    font-size: 12px;
+   }
+
+   .signup-text a {
+    font-size: 10px;
+   }
+
+   .signup-text a span {
+    font-size: 0.6rem;
+   }
+  }
+
+  @media screen and (max-width: 350px) {
+   input {
+    font-size: 12px;
+   }
+
+   .input-class {
+    height: 2rem;
+   }
+
+   .submit-button {
+    padding: 0.6rem;
+   }
+
+   .continue-with>div {
+    padding: 0.3rem;
+    font-size: 11px;
+   }
+
+   .wrapper1 h1 {
+    font-size: large;
+   }
+
+   .wrapper1 .signup-text {
+    margin-top: -1.5rem;
+   }
+  }
+
+  @media screen and (max-width: 500px) {
+   .wrapper2 {
+    margin-left: -50%;
+   }
+
+   .wrapper1 {
+    margin-top: -50%;
+   }
+  }
+
+  @media screen and (min-width: 350px) {
+   .wrapper1 {
+    height: 22rem;
+   }
+  }
+ </style>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+</head>
+
+<body>
+ <div style="position: absolute; z-index: 10">
+  <div class="hellip">
+   <button id="hellip">&hellip;</button>
+   <div id="hellip-wrapper" class="hellip-wrapper">
+    <div class="first-div" id="file">
+     <div>File<svg></svg></div>
+     <div class="hellip-child-dropdown">
+      <ul>
+       <li><span>Exit</span><span>Ctrl+Shift+Q</span></li>
+      </ul>
+     </div>
+    </div>
+    <div class="first-div" id="edit">
+     <div>Edit <svg></svg></div>
+     <div class="hellip-child-dropdown">
+      <ul>
+       <li><span>Undo</span><span>Ctrl+Z</span></li>
+       <li><span>Redo</span><span>Ctrl+Y</span></li>
+       <hr>
+       <li><span>Cut</span><span>Ctrl+X</span></li>
+       <li><span>Copy</span><span>Ctrl+C</span></li>
+       <li><span>Paste</span><span>Ctrl+V</span></li>
+       <li><span>Delete</span><span>Del</span></li>
+      </ul>
+     </div>
+    </div>
+    <div class="first-div" id="view">
+     <div>View<svg></svg></div>
+     <div class="hellip-child-dropdown">
+      <ul class="last-li">
+       <li><span>Zoom&nbsp;In</span><span>Ctrl+=</span></li>
+       <li><span>Zoom&nbsp;Out</span><span>Ctrl+-</span></li>
+       <li><span>Reset&nbsp;Zoom</span><span>Ctrl+0</span></li>
+       <hr>
+       <li><span style="color: rgb(224, 224, 224)">Hardware&nbsp;Acceleration</span></li>
+      </ul>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+ <div class=" wrapper2 wrapper1" id="wrapper1" style="border-radius: 7px">
+  <div class="center">
+   <div style="text-align: center"><img src="../static/images/spotify.png" class="logo2" alt="Spotify Logo"></div>
+   <div class="header">
+    <h1>Millions of songs.<br />Free on Spotify.</h1>
+   </div>
+   <button type="button" id="login-button" class="submit-button" onclick="document.getElementById('wrapper2').style.display = 'block';" style="margin: 1.5rem 0; color: white; background-color: rgb(56, 177, 82);">LOG IN</button>
+   <p class="signup-text"><a href="" onclick="document.getElementById('wrapper2').style.display = 'block'">Don't have an account? <span id="sign-up">SIGN&nbsp;UP</span></a></p>
+  </div>
+ </div>
+ <div class="hide wrapper2" id="wrapper2" style="display: none">
+  <div style="text-align: center"><img src="../static/images/spotify.png" class="logo" alt="Spotify Logo"></div>
+  <div class="header">
+   <h1>Log in to continue.</h1>
+  </div>
+  <div id="error-msg" class="error-msg" style="display: none">
+   <div>Your session has expired, please try again.<br>
+    (Error code: desktop_login_accounts:4)</div>
+  </div>
+  <section>
+   <div class="center">
+    <form action="#" name="login">
+     <div class="input-class">
+      <input type="email" name="email" pattern="\S+@\S+\.\S+" placeholder="Email or username" required>
+      <div class="view-togg-div">
+       <svg stroke="gray" fill="gray" stroke-width="0" viewBox="0 0 512 512" width="1.3em" height="1.3em" xmlns="http://www.w3.org/2000/svg"> <path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z" /></svg>
+      </div>
+     </div>
+     <div class="input-class">
+      <input type="password" name="password" placeholder="Password" required>
+      <div class="view-togg-div" id="eye-icon">
+       <svg fill="gray" stroke="gray" stroke-width="0" width="1.4em" height="1.4em" style="display: none" focusable="false" viewBox="64 64 896 896" title="Hide password"><path d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 000 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z" /><path d="M508 624c-3.46 0-6.87-.16-10.25-.47l-52.82 52.82a176.09 176.09 0 00227.42-227.42l-52.82 52.82c.31 3.38.47 6.79.47 10.25a111.94 111.94 0 01-112 112z" /></svg>
+       <svg focusable="false" fill="gray" stroke="gray" width="1.4em" height="1.4em" viewBox="64 64 896 896" title="View password">
+        <path d="M942.2 486.2Q889.47 375.11 816.7 305l-50.88 50.88C807.31 395.53 843.45 447.4 874.7 512 791.5 684.2 673.4 766 512 766q-72.67 0-133.87-22.38L323 798.75Q408 838 512 838q288.3 0 430.2-300.3a60.29 60.29 0 000-51.5zm-63.57-320.64L836 122.88a8 8 0 00-11.32 0L715.31 232.2Q624.86 186 512 186q-288.3 0-430.2 300.3a60.3 60.3 0 000 51.5q56.69 119.4 136.5 191.41L112.48 835a8 8 0 000 11.31L155.17 889a8 8 0 0011.31 0l712.15-712.12a8 8 0 000-11.32zM149.3 512C232.6 339.8 350.7 258 512 258c54.54 0 104.13 9.36 149.12 28.39l-70.3 70.3a176 176 0 00-238.13 238.13l-83.42 83.42C223.1 637.49 183.3 582.28 149.3 512zm246.7 0a112.11 112.11 0 01146.2-106.69L401.31 546.2A112 112 0 01396 512z" /><path d="M508 624c-3.46 0-6.87-.16-10.25-.47l-52.82 52.82a176.09 176.09 0 00227.42-227.42l-52.82 52.82c.31 3.38.47 6.79.47 10.25a111.94 111.94 0 01-112 112z" /></svg>
+      </div>
+     </div>
+     <p class="reset-psw"><a href="#">Reset Password</a></p>
+     <div class="remember-div">
+      <div>Remember me</div>
+      <!--  Not a checkbox  -->
+      <div class="on-select" data-remember="false" role="switch" aria-checked="false">
+       <div class="trigger" id="trigger"></div>
+      </div>
+     </div>
+     <button type="submit" class="submit-button">LOG IN</button>
+     <div class="hr"><span>OR</span></div>
+     <section class="continue-with">
+      <a href="#" class="continue-with-name">
+       <img class="continue-with-img" src="../static/images/facebook.png" />
+       <span aria-label="Option to continue with facebook" class="flex-gr">Continue with Facebook</span>
+      </a>
+      <a href="#" class="continue-with-name">
+       <svg width="2em" height="2em" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Capa_1" style="enable-background:new 0 0 150 150;" viewBox="10 5 120 120" xml:space="preserve">
+        <style type="text/css">
+         .st0 {
+          fill: #1A73E8;
+         }
+
+         .st1 {
+          fill: #EA4335;
+         }
+
+         .st2 {
+          fill: #4285F4;
+         }
+
+         .st3 {
+          fill: #FBBC04;
+         }
+
+         .st4 {
+          fill: #34A853;
+         }
+
+         .st5 {
+          fill: #4CAF50;
+         }
+
+         .st6 {
+          fill: #1E88E5;
+         }
+
+         .st7 {
+          fill: #E53935;
+         }
+
+         .st8 {
+          fill: #C62828;
+         }
+
+         .st9 {
+          fill: #FBC02D;
+         }
+
+         .st10 {
+          fill: #1565C0;
+         }
+
+         .st11 {
+          fill: #2E7D32;
+         }
+
+         .st12 {
+          fill: #F6B704;
+         }
+
+         .st13 {
+          fill: #E54335;
+         }
+
+         .st14 {
+          fill: #4280EF;
+         }
+
+         .st15 {
+          fill: #34A353;
+         }
+
+         .st16 {
+          clip-path: url(#SVGID_2_);
+         }
+
+         .st17 {
+          fill: #188038;
+         }
+
+         .st18 {
+          opacity: 0.2;
+          fill: #FFFFFF;
+          enable-background: new;
+         }
+
+         .st19 {
+          opacity: 0.3;
+          fill: #0D652D;
+          enable-background: new;
+         }
+
+         .st20 {
+          clip-path: url(#SVGID_4_);
+         }
+
+         .st21 {
+          opacity: 0.3;
+          fill: url(#_45_shadow_1_);
+          enable-background: new;
+         }
+
+         .st22 {
+          clip-path: url(#SVGID_6_);
+         }
+
+         .st23 {
+          fill: #FA7B17;
+         }
+
+         .st24 {
+          opacity: 0.3;
+          fill: #174EA6;
+          enable-background: new;
+         }
+
+         .st25 {
+          opacity: 0.3;
+          fill: #A50E0E;
+          enable-background: new;
+         }
+
+         .st26 {
+          opacity: 0.3;
+          fill: #E37400;
+          enable-background: new;
+         }
+
+         .st27 {
+          fill: url(#Finish_mask_1_);
+         }
+
+         .st28 {
+          fill: #FFFFFF;
+         }
+
+         .st29 {
+          fill: #0C9D58;
+         }
+
+         .st30 {
+          opacity: 0.2;
+          fill: #004D40;
+          enable-background: new;
+         }
+
+         .st31 {
+          opacity: 0.2;
+          fill: #3E2723;
+          enable-background: new;
+         }
+
+         .st32 {
+          fill: #FFC107;
+         }
+
+         .st33 {
+          opacity: 0.2;
+          fill: #1A237E;
+          enable-background: new;
+         }
+
+         .st34 {
+          opacity: 0.2;
+         }
+
+         .st35 {
+          fill: #1A237E;
+         }
+
+         .st36 {
+          fill: url(#SVGID_7_);
+         }
+
+         .st37 {
+          fill: #FBBC05;
+         }
+
+         .st38 {
+          clip-path: url(#SVGID_9_);
+          fill: #E53935;
+         }
+
+         .st39 {
+          clip-path: url(#SVGID_11_);
+          fill: #FBC02D;
+         }
+
+         .st40 {
+          clip-path: url(#SVGID_13_);
+          fill: #E53935;
+         }
+
+         .st41 {
+          clip-path: url(#SVGID_15_);
+          fill: #FBC02D;
+         }
+        </style>
+        <g>
+         <path class="st14" d="M120,76.1c0-3.1-0.3-6.3-0.8-9.3H75.9v17.7h24.8c-1,5.7-4.3,10.7-9.2,13.9l14.8,11.5   C115,101.8,120,90,120,76.1L120,76.1z" />
+         <path class="st15" d="M75.9,120.9c12.4,0,22.8-4.1,30.4-11.1L91.5,98.4c-4.1,2.8-9.4,4.4-15.6,4.4c-12,0-22.1-8.1-25.8-18.9   L34.9,95.6C42.7,111.1,58.5,120.9,75.9,120.9z" />
+         <path class="st12" d="M50.1,83.8c-1.9-5.7-1.9-11.9,0-17.6L34.9,54.4c-6.5,13-6.5,28.3,0,41.2L50.1,83.8z" />
+         <path class="st13" d="M75.9,47.3c6.5-0.1,12.9,2.4,17.6,6.9L106.6,41C98.3,33.2,87.3,29,75.9,29.1c-17.4,0-33.2,9.8-41,25.3   l15.2,11.8C53.8,55.3,63.9,47.3,75.9,47.3z" />
+        </g>
+       </svg>
+       <span aria-label="Option to continue with google" class="flex-gr">Continue with Google</span>
+      </a>
+      <a href="#" class="continue-with-name">
+       <?xml version="1.0" encoding="iso-8859-1"?>
+       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="2em" height="2em" viewBox="0 0 22.773 22.773" style="enable-background:new 0 0 22.773 22.773;" xml:space="preserve">
+        <g fill="white">
+         <path d="M15.769,0c0.053,0,0.106,0,0.162,0c0.13,1.606-0.483,2.806-1.228,3.675c-0.731,0.863-1.732,1.7-3.351,1.573	c-0.108-1.583,0.506-2.694,1.25-3.561C13.292,0.879,14.557,0.16,15.769,0z" />
+         <path d="M20.67,16.716c0,0.016,0,0.03,0,0.045c-0.455,1.378-1.104,2.559-1.896,3.655c-0.723,0.995-1.609,2.334-3.191,2.334	c-1.367,0-2.275-0.879-3.676-0.903c-1.482-0.024-2.297,0.735-3.652,0.926c-0.155,0-0.31,0-0.462,0	c-0.995-0.144-1.798-0.932-2.383-1.642c-1.725-2.098-3.058-4.808-3.306-8.276c0-0.34,0-0.679,0-1.019	c0.105-2.482,1.311-4.5,2.914-5.478c0.846-0.52,2.009-0.963,3.304-0.765c0.555,0.086,1.122,0.276,1.619,0.464	c0.471,0.181,1.06,0.502,1.618,0.485c0.378-0.011,0.754-0.208,1.135-0.347c1.116-0.403,2.21-0.865,3.652-0.648	c1.733,0.262,2.963,1.032,3.723,2.22c-1.466,0.933-2.625,2.339-2.427,4.74C17.818,14.688,19.086,15.964,20.67,16.716z" />
+        </g>
+       </svg>
+       <span aria-label="Option to continue with apple" class="flex-gr">Continue with Apple</span>
+      </a>
+      <p class="signup-text" aria-labelledby="signup-2"><a href="signuup.html">Don't have an account? <span aria-label="Sign up option hyperlink" id="signup-2">SIGN&nbsp;UP</span></a></p>
+      <div class="settings">
+       SETTINGS</div>
+     </section>
+    </form>
+   </div>
+  </section>
+ </div>
+ <script src="index.js"></script>
+ <script>
+  const elId = (id) => document.getElementById(id);
+  const hellip = elId('hellip');
+  const hellip_wrapper = elId('hellip-wrapper');
+  hellip.onclick = () => hellip_wrapper.classList.toggle('show');
+  const firstdiv = document.getElementsByClassName('first-div');
+
+  const select_click = document.getElementsByClassName('on-select')[0];
+  const trigger = elId('trigger');
+  select_click.addEventListener('click', (e) => {
+   select_click.classList.toggle('on-select-click');
+   trigger.classList.toggle('trigger-click');
+  });
+
+  hellip_wrapper.addEventListener('mouseleave', () => {
+   document.body.onclick = (e) => {
+    if (e.target != hellip)
+     hellip_wrapper.classList.remove('show');
+   }
+  });
+  const wrapper1 = elId('wrapper1');
+  const wrapper2 = elId('wrapper2');
+  const loginButton = elId('login-button');
+  const signUp = elId('sign-up');
+
+  loginButton.addEventListener('click', (e) => {
+   e.preventDefault();
+   wrapper1.classList.add('disappear1');
+   setTimeout(() => {
+    wrapper2.classList.add('show-wrapper2');
+   }, 200);
+  });
+  signUp.addEventListener('click', (e) => {
+   e.preventDefault();
+   wrapper1.classList.add('disappear2');
+   setTimeout(() => {
+    wrapper2.classList.add('show-wrapper2');
+   }, 200);
+  });
+  const eyes = elId('eye-icon');
+  const passWInp = eyes.previousElementSibling;
+  const eyeSlash = eyes.lastElementChild;
+  const eyeView = eyes.firstElementChild;
+  eyeSlash.onclick = function() {
+   passWInp.type = 'text';
+   this.style.display = 'none';
+   eyeView.style.display = 'block';
+  };
+  eyeView.onclick = function() {
+   passWInp.type = 'password';
+   this.style.display = 'none';
+   eyeSlash.style.display = 'block';
+  };
+ </script>
+</body>
+
+</html>

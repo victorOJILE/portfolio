@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="author" content="Ojile Victor">
+	<title>Convert numbers to word - Ojile Victor</title>
+	<style>
+		body {
+			margin: 0;
+			background-color: #2D3F67;
+			color: #6A7692;
+			min-height: 100vh;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		main {
+			margin: 10px auto;
+			width: 80%;
+			max-width: 500px;
+			padding: 20px;
+			border-radius: 8px;
+			background-color: white;
+			text-align: center;
+		}
+
+		.input {
+			padding: 10px;
+			margin-bottom: 5px;
+			font-size: 0.8rem;
+			border: 2px solid #4A483D;
+			border-radius: 5px;
+		}
+
+		.info {
+		 width: 80%;
+			font-size: 0.7rem;
+			margin: 0 auto;
+			margin-bottom: 0.75rem;
+			line-height: 13px;
+			color: #C0AF4C;
+		}
+
+		.fa {
+			margin-right: 5px;
+		}
+
+		#answer {
+			height: 300px;
+			font-size: 0.9rem;
+		}
+
+		footer {
+			font-size: 0.75rem;
+			padding: 0.75rem 0rem;
+			color: whitesmoke;
+			text-align: center;
+			border-top: 1px solid whitesmoke;
+		}
+	</style>
+</head>
+
+<body>
+	<main>
+		<h3>Number to word converter</h3>
+		<input type="number" id="input" class="input" placeholder="Enter number here" />
+		<br />
+		<p class="info">
+			<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" width="1.2em" height="1.2em" xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px">
+				<path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z" />
+			</svg>Click outside the input field to get your answer!
+		</p>
+		<div id="answer"></div>
+	</main>
+	<footer>
+		&copy; Developed by Victor Ojile
+	</footer>
+	<script>
+	 const input = document.getElementById('input');
+const answer = document.getElementById('answer');
+
+const numInWords = {
+ 0: 'zero',
+ 1: 'one',
+ 2: 'two',
+ 3: 'three',
+ 4: 'four',
+ 5: 'five',
+ 6: 'six',
+ 7: 'seven',
+ 8: 'eight',
+ 9: 'nine',
+ '.': ' point',
+ '-': 'minus '
+};
+
+const tenToTwenty = ['', '', '', '', '', '', '', '', '', '', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'
+];
+
+const tenToNinety = ['', 'ten', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'
+];
+
+function sentenceCase(word) {
+ return `${word[0].toUpperCase()}${word.slice(1)}`;
+}
+
+function padStart(num) {
+ return (3 - num.length > 0) ? num.padStart(3, '0') : num;
+}
+
+function convertNumToWord(e) {
+ try {
+  let num = e.target.value;
+  let word = [],
+   decimalUnits = [];
+
+  // Check for prefixes e.g minus (-). If present, push its word equivalent to the word array
+
+  let prefix = num.match(/^\D/);
+  prefix && prefix.forEach(each => word.push(numInWords[each]));
+
+  // Check for a decimal and number(s) after it. If present, push its word equivalent to the decimalUnits array
+
+  let decimalPart = num.match(/\.\d*/);
+  decimalPart && Array.from(decimalPart[0]).forEach(each => decimalUnits.push(numInWords[each]));
+
+  let indexOfPoint = num.indexOf('.');
+  indexOfPoint != -1 && (num = num.slice(0, indexOfPoint));
+
+  num = Array.from(num.slice(prefix && prefix.length || 0));
+
+  let numSplit = num.reverse().join('').match(/\d{0,3}/g);
+  numSplit = numSplit.map(each => Array.from(each).reverse()).reverse().filter(each => each.length);
+  if (numSplit.length == 1 && numSplit[0].length == 1 && (numSplit[0][0] == '0')) {
+   answer.textContent = `${sentenceCase(numInWords['0'])}${decimalUnits.join(' ')}`;
+   return;
+  }
+
+  function getHundred(num) {
+   let myWord = [];
+   if (num[1] == '0') {
+    num.slice(1) != '00' ? myWord.unshift(numInWords[num[2]]) : myWord.unshift(numInWords['0']);
+   } else {
+    if (+num.slice(1) < 20) {
+     myWord.unshift(`${tenToTwenty[num.slice(1)]}`);
+    } else {
+     myWord.unshift(`${tenToNinety[num[1]]} ${num[2] == '0' ? '' : numInWords[num[2]]}`);
+    }
+   }
+   if (num[0] != '0') {
+    let hundred = `${numInWords[num[0]]} hundred`;
+    if (myWord.join('') == 'zero') {
+     myWord.shift();
+     myWord.unshift(hundred);
+    } else {
+     myWord.unshift(`${hundred} and `);
+    }
+   }
+   return myWord.join('');
+  }
+
+  let splitValFuncArr = [
+   function(num) {
+    let ans = getHundred(padStart(num));
+    word.push(ans == 'zero' ? "" : ans);
+   },
+   function(num) {
+    let ans = getHundred(padStart(num));
+    word.push(ans == 'zero' ? '' : `${ans} thousand, `);
+   },
+   function(num) {
+    let ans = getHundred(padStart(num));
+    word.push(ans == 'zero' ? '' : `${ans} million, `);
+   },
+   function(num) {
+    let ans = getHundred(padStart(num));
+    word.push(ans == 'zero' ? '' : `${ans} billion, `);
+   },
+   function(num) {
+    let ans = getHundred(padStart(num));
+    word.push(ans == 'zero' ? '' : `${ans} trillion, `);
+   }
+  ];
+
+  splitValFuncArr = splitValFuncArr.slice(0, numSplit.length).reverse();
+  numSplit.forEach((each, ind) => {
+   splitValFuncArr[ind](each.join(''));
+  });
+
+  word.push(decimalUnits.join(' '));
+  answer.textContent = `${sentenceCase(word.join(''))}.`;
+ } catch (e) {
+  console.error(e);
+ }
+}
+
+input.addEventListener('blur', convertNumToWord);
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8" />
+ <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+ <meta name="author" content="Ojile Victor" />
+ <title>Analog clock - Ojile Victor</title>
+ <style>
+  body {
+   margin: 0px;
+   background-color: black;
+  }
+
+  header h3 {
+   text-align: center;
+   padding: 0px 1.5vw;
+   color: white;
+  }
+
+  .clock {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 17rem;
+   background-color: gainsboro;
+  }
+
+  .clockBdy {
+   height: 60%;
+   width: 10rem;
+   background-color: #100B2B;
+   border-radius: 50% /50%;
+   position: relative;
+  }
+
+  .clockBdy2 {
+   background-color: #2DC268;
+   width: 9.6rem;
+   height: 96.3%;
+   border-radius: 50%;
+   position: absolute;
+   bottom: 1.9%;
+   left: 2%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+  }
+
+  .center {
+   background-color: white;
+   height: 5.5%;
+   width: 0.5rem;
+   border-radius: 50% /50%;
+  }
+
+  .longHand {
+   width: 0.2rem;
+   height: 70%;
+   position: absolute;
+   top: 15%;
+   right: 49%;
+  }
+
+  .longHand1 {
+   width: 100%;
+   height: 60%;
+   background-color: azure;
+  }
+
+  .longHand2 {
+   width: 100%;
+   height: 40%;
+  }
+
+  .shortHand {
+   width: 0.2rem;
+   height: 40%;
+   position: absolute;
+   top: 29.5%;
+   right: 49%;
+  }
+
+  .shortHand1 {
+   width: 100%;
+   height: 73%;
+   background-color: azure;
+  }
+
+  .shortHand2 {
+   width: 100%;
+   height: 27%;
+  }
+
+  .longHand,
+  .shortHand {
+   border-radius: 50%;
+  }
+
+  .secHand {
+   width: 0.1rem;
+   height: 70%;
+   position: absolute;
+   top: 15%;
+   right: 49%;
+  }
+
+  .secHand1 {
+   width: 100%;
+   height: 60%;
+   background-color: #878857;
+  }
+
+  .secHand2 {
+   width: 100%;
+   height: 40%;
+  }
+
+  button {
+   border: none;
+   padding: 4px;
+   background-color: inherit;
+   border-radius: 50% /50%;
+   font-size: 0.8rem;
+   font-weight: 600;
+   color: azure;
+   outline: none;
+  }
+
+  [class^="but"] {
+   position: absolute;
+  }
+
+  .but12 {
+   top: 1%;
+  }
+
+  .but1 {
+   top: 7%;
+   right: 21%;
+  }
+
+  .but2 {
+   top: 22%;
+   right: 6%;
+  }
+
+  .but3 {
+   top: 42%;
+   right: 0%;
+  }
+
+  .but4 {
+   bottom: 22%;
+   right: 6%;
+  }
+
+  .but5 {
+   bottom: 5.7%;
+   right: 22%;
+  }
+
+  .but6 {
+   bottom: 0%;
+  }
+
+  .but7 {
+   left: 22%;
+   bottom: 5.7%;
+  }
+
+  .but8 {
+   bottom: 22%;
+   left: 6%;
+  }
+
+  .but9 {
+   top: 42%;
+   left: 0%;
+  }
+
+  .but10 {
+   top: 22%;
+   left: 5%;
+  }
+
+  .but11 {
+   top: 7%;
+   left: 20%;
+  }
+ </style>
+</head>
+
+<body>
+ <header>
+  <h3>
+   Analog clock
+  </h3>
+ </header>
+ <main class="clock">
+  <div class="clockBdy">
+   <div class="clockBdy2">
+    <div class="longHand">
+     <div class="longHand1">
+     </div>
+     <div class="longHand2">
+     </div>
+    </div>
+    <div class="center">
+    </div>
+    <div class="shortHand">
+     <div class="shortHand1">
+     </div>
+     <div class="shortHand2">
+     </div>
+    </div>
+    <div class="secHand">
+     <div class="secHand1">
+     </div>
+     <div class="secHand2">
+     </div>
+    </div>
+   </div>
+  </div>
+ </main>
+ <script>
+  let buttonDiv = document.getElementsByClassName('clockBdy2')[0];
+  let button = document.getElementsByClassName('longHand')[0];
+  for (let i = 12; i > 0; i--) {
+   let button1 = document.createElement('button');
+   button1.innerText = i;
+   button1.className = 'but' + i;
+   buttonDiv.insertBefore(button1, button);
+  }
+  let longHand = document.getElementsByClassName('longHand')[0];
+  let shortHand = document.getElementsByClassName('shortHand')[0];
+  let secHand = document.getElementsByClassName('secHand')[0];
+  let date = "",
+   hour = '',
+   minutes = '',
+   second = '';
+
+  function getTime() {
+   date = new Date();
+   hour = date.getHours();
+   minutes = date.getMinutes();
+   second = date.getSeconds();
+  }
+  getTime();
+
+  function moveHands() {
+   shortHand.style.transform = "rotate(" + (hour * 30 + (minutes / 2)) + "deg)";
+   longHand.style.transform = "rotate(" + minutes * 6 + "deg)";
+  }
+  moveHands();
+
+  function moveSec() {
+   secHand.style.transform = "rotate(" + second * 6 + "deg)";
+  }
+  moveSec();
+
+  function updateAll() {
+   getTime();
+   moveSec();
+   moveHands();
+  }
+  setInterval(updateAll, 1000);
+ </script>
+</body>
+
+</html>

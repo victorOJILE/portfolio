@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="utf-8" />
+ <meta http-equiv="X-UA-Compatible" content="IE-Edge" />
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+ <title>Calculator - Ojile Victor</title>
+ <meta name="author" content="Ojile Victor" />
+ <style>
+  body {
+   margin: 0;
+   -webkit-user-select: none;
+   -ms-user-select: none;
+   user-select: none
+  }
+
+  .calculator {
+   width: 90%;
+   min-width: 250px;
+   max-width: 20rem;
+   margin: 10px auto;
+   background-color: black;
+   box-shadow: inset 0px 0px 27px 4px dimgray;
+   padding: 0.5rem;
+   border: none;
+   border-radius: 12px;
+  }
+
+  .sec-div {
+   background-color: rgb(68, 64, 58);
+   border-radius: 6px;
+   box-shadow: inset 0px 0px 21px 2px rgb(26, 24, 24);
+  }
+
+  .input-div {
+   position: relative;
+   margin-top: 1rem
+  }
+
+  .input-div small {
+   position: absolute;
+   top: -1.2rem;
+   font-size: 0.75rem;
+   color: whitesmoke;
+  }
+
+  .input-div input {
+   width: 99%;
+   background-color: white;
+   border: none;
+   font-size: 1.3rem;
+   font-weight: 600;
+  }
+
+  .input-div #screen {
+   text-align: right
+  }
+
+  .input-div #upperScreen {
+   height: 1.8rem;
+   font-size: 0.85rem;
+   padding: 0 0 0 0.25rem;
+   border-radius: 0.15rem 0.15rem 0 0;
+  }
+
+  .input-div input:nth-child(2) {
+   height: 35px;
+   padding: 0.1rem 0.25rem 0.1rem 0;
+  }
+
+  .button-div {
+   display: flex;
+   justify-content: space-between;
+   margin-top: 0.1rem;
+  }
+
+  .button-div>div {
+   width: 18.4%;
+   margin: 0.15rem 0;
+  }
+
+  .mt>div {
+   padding-top: 1rem;
+   position: relative;
+  }
+
+  .button-div>div>div {
+   color: #c1c0c0;
+   font-size: 0.75rem;
+   text-align: center;
+   width: 100%;
+   position: absolute;
+   top: 0;
+   left: 0
+  }
+
+  .button-div button {
+   width: 100%;
+   height: 35px;
+   max-height: 45px;
+   min-height: 25px;
+   outline: none;
+  }
+
+  .sci-sign {
+   max-height: 30px !important;
+   padding: 0;
+   border: 1px solid grey;
+   border-radius: 0.15rem;
+   font-size: 0.8rem;
+   background-color: rgb(124, 93, 93);
+   color: rgb(248, 248, 250);
+  }
+
+  .sci-sign:active {
+   background-color: rgb(105, 81, 81);
+   border: 0.15rem solid rgb(104, 91, 91);
+  }
+
+  .numbers,
+  .mathSign,
+  .equalTo,
+  .delBbtn,
+  .clrBtn {
+   border-width: 1px;
+   border-radius: 0.3rem;
+   margin: 0.15rem;
+   padding: 0.45rem 0;
+   background-color: rgb(248, 252, 251);
+   font-size: 0.95rem;
+   font-weight: 500;
+  }
+
+  .delBbtn {
+   background-color: red;
+   color: white;
+   font-weight: 600;
+   border-color: red;
+  }
+
+  .delBbtn:active {
+   background-color: rgb(212, 7, 7);
+   border: 1px outset rgb(172, 4, 4);
+  }
+
+  .clrBtn {
+   border: 1px outset rgb(142, 158, 51);
+   background-color: rgb(183, 202, 76);
+   color: white;
+   font-weight: 600;
+  }
+
+  .clrBtn:active {
+   background-color: rgb(145, 156, 83);
+  }
+
+  .numbers:active {
+   background-color: rgb(219, 223, 230);
+   color: white;
+  }
+
+  .mathSign {
+   border: 1px outset rgb(23, 47, 92);
+   background-color: rgb(146, 77, 163);
+   font-weight: 600;
+   color: white;
+  }
+
+  .mathSign:active {
+   background-color: rgb(97, 45, 110);
+  }
+
+  .equalTo {
+   background-color: rgb(91, 180, 101);
+   border: 2px outset rgb(38, 180, 126);
+   font-weight: 600;
+   color: white;
+  }
+
+  .equalTo:active {
+   background-color: rgb(68, 134, 76);
+   border-color: rgb(58, 116, 64);
+  }
+ </style>
+</head>
+
+<body>
+ <main class="calculator">
+  <div class="sec-div">
+   <section class="input-div">
+    <small id="shiftText" style="left: 2%"></small>
+    <small id="hypText" style="left: 35%"></small>
+    <small id="degText" style="left: 65%">DEG</small>
+    <input type="text" id="upperScreen" disabled />
+    <input type="text" id="screen" placeholder="0" disabled />
+   </section>
+   <div class="button-div">
+    <div>
+     <button class="sci-sign" data-type="useShift">SHIFT</button>
+    </div>
+    <div>
+     <button class="sci-sign" data-type="degOrRadF" id="deg">RAD</button>
+    </div>
+    <div>
+     <button class="sci-sign" data-type="operator" data-arg="exp">EXP</button>
+    </div>
+    <div>
+     <button class="sci-sign" data-type="scienfic" data-arg="π">π</button>
+    </div>
+    <div>
+     <button class="sci-sign" data-type="operator" data-arg="raise">x<sup>y</sup></button>
+    </div>
+   </div>
+   <div class="button-div mt">
+    <div>
+     <button class="sci-sign" data-type="useHyp">hyp</button>
+    </div>
+    <div>
+     <div><small>sin<sup>-1</sup></small></div>
+     <button class="sci-sign" data-shift="sin-1" data-type="scienfic" data-arg="sin">sin</button>
+    </div>
+    <div>
+     <div><small>cos<sup>-1</sup></small></div>
+     <button class="sci-sign" data-shift="cos-1" data-type="scienfic" data-arg="cos">cos</button>
+    </div>
+    <div>
+     <div><small>tan<sup>-1</sup></small></div>
+     <button class="sci-sign" data-shift="tan-1" data-type="scienfic" data-arg="tan">tan</button>
+    </div>
+    <div>
+     <div><small>10<sup>x</sup></small></div>
+     <button class="sci-sign" data-shift="log10" data-type="scienfic" data-arg="log">log</button>
+    </div>
+   </div>
+   <div class="button-div mt">
+    <div>
+     <div><small>³√</small></div>
+     <button class="sci-sign" data-shift="cuberoot" data-type="scienfic" data-arg="√">√</button>
+    </div>
+    <div>
+     <div><small>x³</small></div>
+     <button class="sci-sign" data-shift="cube" data-type="operator" data-arg="square">x²</button>
+    </div>
+    <div>
+     <button class="sci-sign" data-type="operator" data-arg="%">%</button>
+    </div>
+    <div>
+     <button class="sci-sign" data-type="operator" data-arg="openBrac">(</button>
+    </div>
+    <div>
+     <button class="sci-sign" data-type="operator" data-arg="closeBrac">)</button>
+    </div>
+   </div>
+   <div class="button-div">
+    <button class="numbers" data-type="number" data-arg="7">7</button>
+    <button class="numbers" data-type="number" data-arg="8">8</button>
+    <button class="numbers" data-type="number" data-arg="9">9</button>
+    <button class="delBbtn" data-type="del" onclick="actions.del()">
+     <svg style="width: 28px;height: 30px; margin-top: -0.4rem">
+      <path d="M1 15 L7 8 L24 8 L24 22 L7 22 Z" fill="white" stroke="white" stroke-line-cap="butt" stroke-width="3" />
+      <g stroke="darkred" stroke-line-cap="round" stroke-width="2">
+       <path d="M10 11 L19 19" />
+       <path d="M10 19 L19 11" />
+      </g>
+     </svg>
+    </button>
+    <button class="clrBtn" data-type="clr">AC</button>
+   </div>
+   <div class="button-div">
+    <button class="numbers" data-type="number" data-arg="4">4</button>
+    <button class="numbers" data-type="number" data-arg="5">5</button>
+    <button class="numbers" data-type="number" data-arg="6">6</button>
+    <button class="mathSign" data-type="operator" data-arg="divide">÷</button>
+    <button class="mathSign" data-type="operator" data-arg="multiply">×</button>
+   </div>
+   <div class="button-div">
+    <button class="numbers" data-type="number" data-arg="1">1</button>
+    <button class="numbers" data-type="number" data-arg="2">2</button>
+    <button class="numbers" data-type="number" data-arg="3">3</button>
+    <button class="mathSign" data-type="operator" data-arg="subtract">-</button>
+    <button class="mathSign" data-type="operator" data-arg="add">+</button>
+   </div>
+   <div class="button-div">
+    <button class="numbers" data-type="number" data-arg="0">0</button>
+    <button class="numbers" data-type="number" data-arg=".">•</button>
+    <button class="numbers" data-type="number" data-arg="00">00</button>
+    <button class="mathSign" data-type="prevAns">Ans</button>
+    <button class="equalTo" data-type="equalTo">=</button>
+   </div>
+  </div>
+ </main>
+</body>
+<script>
+ const inp = document.getElementById('screen');
+ const upperScreen = document.getElementById('upperScreen');
+ const shiftText = document.getElementById('shiftText');
+ const deg = document.getElementById('deg');
+ const degText = document.getElementById('degText');
+ const hypText = document.getElementById('hypText');
+ 
+ const err = 'Error', prevans = [];
+ 
+ let clrScreen = false,
+  overwrite = [], hyp = false, degOrRad = true, shift = false;
+
+ function removeCond() {
+  if (shift) {
+   shiftText.innerText = '';
+   shift = !shift;
+  }
+  if (hyp) {
+   hyp = !hyp;
+   hypText.innerText = ''
+  }
+ }
+ 
+ const actions = {
+  number(num) {
+   let input = inp.value;
+   if (input == err) inp.value = '';
+   let val = input.substring(input.length - 1);
+   removeCond();
+   if (val == ')') return;
+   if (num == '.') {
+    if (val == num || /\d*[\.]\w*$/g.test(input) || /[²³)]/.test(val)) return;
+    if (clrScreen && input != err) {
+     clrScreen = false;
+     inp.value += num;
+     return;
+    }
+    inp.value += num;
+    return;
+   }
+   if (clrScreen == true) {
+    inp.value = num;
+    clrScreen = false;
+    return;
+   }
+   inp.value += num;
+  },
+  useShift() {
+   !shift ? shiftText.innerText = 'SHIFT' : shiftText.innerText = '';
+   shift = !shift;
+  },
+  degOrRadF() {
+   deg.textContent = degOrRad ? 'DEG' : 'RAD';
+   degText.textContent = degOrRad ? 'RAD' : 'DEG';
+   degOrRad = !degOrRad;
+  },
+  useHyp() {
+   hypText.textContent = !hyp ? 'HYP' : '';
+   hyp = !hyp;
+  },
+  del() {
+   const valueH = inp.value;
+   removeCond();
+   
+   if (!valueH.length) return;
+   if (valueH == err) { inp.value = ''; return; }
+   if (/n\(|s\(|g\(/.test(valueH.substring(valueH.length - 2, valueH.length))) {
+    inp.value = valueH.substring(0, valueH.length - 4);
+    return;
+   } else if (/t\(/.test(valueH.substring(valueH.length - 2, valueH.length))) {
+    inp.value = valueH.substring(0, valueH.length - 4);
+    return;
+   }
+   inp.value = valueH.substring(0, valueH.length - 1);
+   if (clrScreen) clrScreen = false;
+  },
+  clr() {
+   inp.value = '';
+   upperScreen.value = '';
+   removeCond();
+  },
+  equalTo() {
+   let input = inp.value;
+   try {
+    if (input === err || input === '') inp.value = '';
+    upperScreen.value = input;
+    overwrite.forEach(e => {
+     if (degOrRad) {
+      if (!e.name.match(/h/)) {
+       let match = e.name.match(/sin|cos|tan/);
+       if (match) {
+        let arr = Array.from(input);
+        let ind = arr.indexOf(match[0]);
+        arr.splice(arr.indexOf(')', ind + 3), 0, `*${Math.PI/180}`);
+        input = arr.join('');
+       }
+      }
+     }
+     if (e.name == '^') {
+      let ind = input.indexOf('^');
+      if (ind != -1) {
+       input = input.slice(0, ind) + '**' + input.slice(ind + 1);
+      }
+     } else {
+      input = input.replace(new RegExp(e.name, 'g'), e[e.name] || '');
+     }
+    });
+    let ans = eval(input);
+    inp.value = ans || ''; // Math.round(ans *100)/100
+    removeCond();
+    clrScreen = true;
+    overwrite = [];
+    prevans.unshift(ans);
+   } catch (e) {
+    inp.value = err;
+    prevans.unshift(err);
+   }
+  },
+  prevAns() {
+   inp.value = prevans[0] || null;
+   if (prevans.length > 1) prevans.pop();
+   removeCond();
+  },
+  scienfic(str) {
+   strObj[str]();
+  },
+  operator(operator) {
+   if (clrScreen && inp.value != err) clrScreen = false;
+   const val = inp.value.substring(inp.value.length - 1),
+    val2 = inp.value.substring(inp.value.length - 2);
+   if (inp.value == err) inp.value = '';
+   operators[operator](val, val2);
+   removeCond();
+  }
+ }
+ 
+ const operators = {
+  add(val, val2) {
+   if (/[÷×+.^]/.test(val)) {
+    let value = inp.value;
+    inp.value = value.substring(0, value.length - 1) + "+";
+   } else if (/--|\^-|\+-/.test(val2)) {
+    return;
+   } else inp.value += "+";
+  },
+  subtract(val, val2) {
+   if (/[÷.×]/.test(val)) {
+    let value = inp.value;
+    inp.value = value.substring(0, value.length - 1) + "-";
+   } else if (/--|\^-|\+-/.test(val2) || /-+/.test(val2)) {
+    return;
+   } else inp.value += "-";
+  },
+  divide(val) {
+   if (!val) return;
+   if (/[(×÷\-+e.^]/.test(val)) {
+    let value = inp.value;
+    inp.value = value.substring(0, value.length - 1) + "÷";
+   } else {
+    inp.value += "÷";
+    this.overwriteF("÷", '/');
+   }
+  },
+  multiply(val) {
+   if (!val) return;
+   if (/[(÷×\-+e.^]/.test(val)) {
+    let value = inp.value;
+    inp.value = value.substring(0, value.length - 1) + "×";
+    this.overwriteF('×', '*');
+   } else {
+    inp.value += "×";
+    this.overwriteF('×', '*');
+   }
+  },
+  square(val = '²') {
+   if (!val) return;
+   if (shift) return this.cube(val);
+   if (/[(÷×\-+^.e]/.test(val)) {
+    let value = inp.value;
+    inp.value = value.substring(0, value.length - 1) + "²";
+    this.overwriteF('²', '**2');
+   } else {
+    inp.value += '²';
+    this.overwriteF('²', '**2');
+   }
+  },
+  cube(val = '³') {
+   if (!val) return;
+   if (/[(÷×\-.+^e]/.test(val)) {
+    let value = inp.value;
+    inp.value = value.substring(0, value.length - 1) + "³";
+    this.overwriteF('³', '**3');
+   } else {
+    inp.value += '³';
+    this.overwriteF('³', '**3');
+   }
+  },
+  raise(val) {
+   if (!val) return;
+   if (/[(÷×\-e.+]/.test(val)) {
+    let value = inp.value;
+    inp.value = value.substring(0, value.length - 1) + "^";
+    return this.overwriteF('^', '**');
+   }
+   inp.value += '^';
+   this.overwriteF('^', '**');
+  },
+  openBrac(val) {
+   if (/[²³.e]/.test(val)) return;
+   if (/[0-9]/.test(val)) {
+    inp.value += "×(";
+    return this.overwriteF('×', '*');
+   }
+   inp.value += "(";
+  },
+  closeBrac(val) {
+   let inpV = inp.value,
+    openBMatch = inpV.match(/\(/g);
+   let count = openBMatch ? openBMatch.length : 0;
+   let closeBMatch = inpV.match(/\)/g);
+   let count2 = closeBMatch ? closeBMatch.length : 0;
+   if (!val || /[÷×(\-+.^]/.test(val) || count2 >= count) {
+    return;
+   } else {
+    inp.value += ")";
+   }
+  },
+  exp(val) {
+   if (!val || /[÷(×)\-+^]/.test(val)) return;
+   inp.value += "e";
+  },
+  '%'(val) {
+   if (!val || /[÷(×\-+^]/.test(val)) return;
+   inp.value += '%';
+   this.overwriteF('%', '/100');
+  },
+  overwriteF(opr, replacer) {
+   !overwrite.find(e => e.name == opr) && overwrite.push({ [opr]: replacer, name: opr });
+  }
+ };
+ 
+ const strObj = {
+  'sin'() {
+   let str = shift && hyp ? 'asinh' : hyp ? 'sinh' : shift ? 'asin' : 'sin';
+   this.run(`${str}(`, str, `Math.${str}`);
+  },
+  'cos'() {
+   let str = shift && hyp ? 'acosh' : hyp ? 'cosh' : shift ? 'acos' : 'cos';
+   this.run(`${str}(`, str, `Math.${str}`);
+  },
+  'tan'() {
+   let str = shift && hyp ? 'atanh' : hyp ? 'tanh' : shift ? 'atan' : 'tan';
+   this.run(`${str}(`, str, `Math.${str}`);
+  },
+  'log'() {
+   if (shift) return this['10^(']();
+   this.run('log(', 'log', 'Math.log10');
+  },
+  '10^('() {
+   this.run('10^(', '^', '**');
+  },
+  '√'() {
+   if (shift) return this['³√']();
+   this.run('√(', '√', 'Math.sqrt');
+  },
+  '³√'() {
+   this.run('³√(', '³√', 'Math.cbrt');
+  },
+  'π'() {
+   this.run('π', 'π', Math.PI);
+  },
+  run(inpVal, predicate, replacer) {
+   if (clrScreen && inp.value != err) {
+    inp.value = inpVal;
+    clrScreen = false;
+    operators.overwriteF(predicate, replacer);
+    return removeCond();
+   }
+   if (/[\d)²³]/.test(inp.value.substring(inp.value.length - 1))) return;
+   inp.value += inpVal;
+   operators.overwriteF(predicate, replacer);
+   removeCond();
+  }
+ }
+
+ document.getElementsByClassName('sec-div')[0].addEventListener('click', function(e) {
+  let targ = e.target;
+  if(targ.nodeName.toLowerCase() !== 'button') return;
+  
+  actions[targ.dataset.type](targ.dataset.arg);
+ });
+</script>
+
+</html>
