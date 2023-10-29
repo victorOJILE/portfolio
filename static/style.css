@@ -18,13 +18,8 @@ html {
 }
 
 :root {
-	--backgroundColor: #eae4eb;
-	--cardColor: #3c74e3;
-	--cardColor2: #16245b;
 	--text-color1: #eae4eb;
 	--text-color2: #eb9a07;
-	--text-color3: #16245b;
-	--skills: #eae4eb;
 }
 
 * {
@@ -34,7 +29,7 @@ html {
 }
 
 body {
-	background-color: var(--backgroundColor) !important;
+	background-color: #eae4eb !important;
 }
 
 .flex {
@@ -468,7 +463,7 @@ header p {
 	margin-top: 6rem;
 	padding-top: 6rem;
 	border-top: 3px solid #B9B5CA;
-	color: var(--cardColor2);
+	color: #16245b;
 	font-size: 0.8rem;
 	font-family: "Open sans", Roboto, sans-serif;
 }
