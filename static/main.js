@@ -24,8 +24,6 @@ collapse.addEventListener('click', function(e) {
  }
 });
 
-let useIntersectionObserver = !!IntersectionObserver;
-
 function observeElem(elem, isVisble, notVisible, unobserve) {
  let observer = new IntersectionObserver(
   function(entries) {
@@ -69,15 +67,15 @@ let contact_div = document.querySelector('.contact-div');
 let downloadCV = elCls('downloadCV')[0];
 let downloadCVBtn = elCls('cm-blue')[0];
 
-if (useIntersectionObserver) {
+if (IntersectionObserver) {
  observeElem(downloadCV, () => {
   downloadCVBtn.classList.add('bounceInRight');
   downloadCVBtn.style.opacity = '1';
  }, () => null, true);
  observeElem(bottom_contact,
-   () => contact_div.style.display = 'none',
-   () => contact_div.style.display = 'block'
-  );
+  () => contact_div.style.display = 'none',
+  () => contact_div.style.display = 'block'
+ );
 } else {
  window.addEventListener('scroll', function showDownloadCVBtn() {
   if (isVisible(downloadCVBtn)) {
@@ -152,16 +150,16 @@ emailScript.onload = function() {
    })
    .then(function(response) {
     submit.innerText = 'Sent!';
-    
+
     analytics.logEvent('message', {
      name,
      message,
      subject: subject || 'New message from your portfolio',
      client: email
     });
-    
+
     alert('Message sent. Thanks for reaching out!');
-    
+
     submit.addEventListener('click', function() {
      form.fullName.value = '';
      form.email.value = '';
@@ -169,7 +167,7 @@ emailScript.onload = function() {
      form.message.value = '';
      this.innerText = 'Submit';
     }, { once: true });
-    
+
    }, function(error) {
     submit.innerText = 'Submit';
    });
@@ -199,11 +197,11 @@ const cEl = function(elem, props, ...children) {
   if (props) {
    for (let key in props) {
     if (key == 'class') {
-     if(Array.isArray(props[key])) {
+     if (Array.isArray(props[key])) {
       props[key].forEach(each => element.classList.add(each))
-      } else {
-       props[key].split(' ').forEach(cls => element.classList.add(cls));
-      }
+     } else {
+      props[key].split(' ').forEach(cls => element.classList.add(cls));
+     }
     } else {
      element[key] = props[key];
     }
@@ -230,8 +228,8 @@ const project_tools = {
    if (obj.description.length) {
     const ul = cEl('ul', { class: 'list-unstyled checkMark' });
     obj.description.forEach(each => ul.appendChild(cEl('li', { class: 'd-flex' },
-      cEl('span', { innerText: each })
-     )));
+     cEl('span', { innerText: each })
+    )));
     descr = cEl('div', { class: 'flex-grow-1' }, cEl('ul', { class: 'list' }, ul),
      cEl('p', { innerText: `Web technologies used: ${obj.web_technologies.join(', ')}`, ariaLabel: 'Web technologies used' })
     );
@@ -243,7 +241,7 @@ const project_tools = {
    const cardImage = cEl('img', { alt: obj.alt_text || '', ariaDetails: obj.id, src: obj.main_img || '' });
 
    const cardBottom = cEl('div', { class: 'pt-3' },
-    cEl('a', { href: obj.git_link || '' }, cEl('i', { innerHTML: gitIconSvg }).firstElementChild ),
+    cEl('a', { href: obj.git_link || '' }, cEl('i', { innerHTML: gitIconSvg }).firstElementChild),
     cEl('a', { href: obj.view_link || '', class: 'demo p-2 px-4 ml-3 rounded text-center font-weight-bold text-light' },
      cEl('span', { innerText: 'View' }), cEl('i', { innerHTML: externalLinkIconSvg }).firstElementChild
     )
@@ -251,17 +249,17 @@ const project_tools = {
 
    descr.append(cardBottom);
    const cardTop = cEl('div', { class: 'row align-items-center mt-5' },
-     cEl('div', { class: 'img-div col-sm-7' },
-      cardImage
-     ),
-     cEl('div', { class: 'col-sm-5' },
-      cEl('h3', { class: 'mt-3 mb-3 mt-md-0 text-center font-weight-bold', innerText: obj.name }),
-      cEl('div', { class: 'd-flex align-items-stretch mt-4 mt-md-0' },
-       cEl('div', { class: 'horizontalline' }),
+    cEl('div', { class: 'img-div col-sm-7' },
+     cardImage
+    ),
+    cEl('div', { class: 'col-sm-5' },
+     cEl('h3', { class: 'mt-3 mb-3 mt-md-0 text-center font-weight-bold', innerText: obj.name }),
+     cEl('div', { class: 'd-flex align-items-stretch mt-4 mt-md-0' },
+      cEl('div', { class: 'horizontalline' }),
       descr
-      )
      )
-    );
+    )
+   );
 
    const card = cEl('div', { class: 'pt-2 pb-4 d-flex' }, cardTop);
 
@@ -317,7 +315,7 @@ const projects = [
   description: ["Get real-time exchange rate for currency pairs, cryptocurrency and stocks.", "Historical data for currency pairs, cryptocurrency and stocks.", "List of top gaining or losing stocks today. etc."],
   web_technologies: project_tools.web_trio.concat(["NodeJS", "ExpressJS"]),
   git_link: 'https://github.com/victorOJILE/Financial-markets-realtime-and-historical-data',
-  view_link: ''
+  view_link: 'https://victorojile.github.io/Financial-markets-realtime-and-historical-data'
  },
  {
   name: 'The Tetris game',
