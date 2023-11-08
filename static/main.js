@@ -16,7 +16,7 @@ icon.addEventListener('click', () => {
 });
 
 collapse.addEventListener('click', function(e) {
- if (e.target.tagName == 'A') {
+ if (e.target.tagName.toLowerCase() == 'a') {
   document.body.style.overflow = 'auto';
   icon.classList.remove("is-active");
   collapse.classList.toggle('show-collapse')
@@ -24,10 +24,7 @@ collapse.addEventListener('click', function(e) {
  }
 });
 
-let useIntersectionObserver = false;
-if (IntersectionObserver) {
- useIntersectionObserver = true;
-}
+let useIntersectionObserver = !!IntersectionObserver;
 
 function observeElem(elem, isVisble, notVisible, unobserve) {
  let observer = new IntersectionObserver(
@@ -180,7 +177,7 @@ emailScript.onload = function() {
 };
 
 emailScript.onerror = function() {
- alert('Error loading email service! Please check your internet connection and try again.');
+ setTimeout(() => alert('Error loading email service! Please check your internet connection and try again.'), 3000);
 }
 
 document.body.append(emailScript);
@@ -190,9 +187,9 @@ back_to_top.onclick = () => document.body.scrollIntoView();
 
 window.addEventListener('scroll', () => {
  if (document.documentElement.scrollTop > window.innerHeight) {
-  back_to_top.classList.remove('hide');
+  back_to_top.classList.remove('d-none');
  } else {
-  back_to_top.classList.add('hide');
+  back_to_top.classList.add('d-none');
  }
 });
 
@@ -202,7 +199,11 @@ const cEl = function(elem, props, ...children) {
   if (props) {
    for (let key in props) {
     if (key == 'class') {
-     Array.isArray(props[key]) ? props[key].forEach(each => element.classList.add(each)) : element.classList.add(props[key]);
+     if(Array.isArray(props[key])) {
+      props[key].forEach(each => element.classList.add(each))
+      } else {
+       props[key].split(' ').forEach(cls => element.classList.add(cls));
+      }
     } else {
      element[key] = props[key];
     }
@@ -227,7 +228,7 @@ const project_tools = {
   try {
    let descr;
    if (obj.description.length) {
-    const ul = cEl('ul', { class: ['list-unstyled', 'checkMark'] });
+    const ul = cEl('ul', { class: 'list-unstyled checkMark' });
     obj.description.forEach(each => ul.appendChild(cEl('li', { class: 'd-flex' },
       cEl('span', { innerText: each })
      )));
@@ -241,28 +242,28 @@ const project_tools = {
    }
    const cardImage = cEl('img', { alt: obj.alt_text || '', ariaDetails: obj.id, src: obj.main_img || '' });
 
-   const cardBottom = cEl('div', { class: ['pt-3'] },
+   const cardBottom = cEl('div', { class: 'pt-3' },
     cEl('a', { href: obj.git_link || '' }, cEl('i', { innerHTML: gitIconSvg }).firstElementChild ),
-    cEl('a', { href: obj.view_link || '', class: ['demo', 'p-2', 'px-4', 'ml-3', 'rounded', 'text-center', 'font-weight-bold', 'text-light'] },
+    cEl('a', { href: obj.view_link || '', class: 'demo p-2 px-4 ml-3 rounded text-center font-weight-bold text-light' },
      cEl('span', { innerText: 'View' }), cEl('i', { innerHTML: externalLinkIconSvg }).firstElementChild
     )
    );
 
    descr.append(cardBottom);
-   const cardTop = cEl('div', { class: ['row', 'align-items-center', 'mt-5'] },
-     cEl('div', { class: ['img-div', 'col-sm-7'] },
+   const cardTop = cEl('div', { class: 'row align-items-center mt-5' },
+     cEl('div', { class: 'img-div col-sm-7' },
       cardImage
      ),
      cEl('div', { class: 'col-sm-5' },
-      cEl('h3', { class: ['mt-3', 'mb-3', 'mt-md-0', 'text-center', 'font-weight-bold'], innerText: obj.name }),
-      cEl('div', { class: ['d-flex', 'align-items-stretch', 'mt-4', 'mt-md-0'] },
-       cEl('div', { class: ['horizontalline'] }),
+      cEl('h3', { class: 'mt-3 mb-3 mt-md-0 text-center font-weight-bold', innerText: obj.name }),
+      cEl('div', { class: 'd-flex align-items-stretch mt-4 mt-md-0' },
+       cEl('div', { class: 'horizontalline' }),
       descr
       )
      )
     );
 
-   const card = cEl('div', { class: ['pt-2', 'pb-4', 'd-flex'] }, cardTop);
+   const card = cEl('div', { class: 'pt-2 pb-4 d-flex' }, cardTop);
 
    project_row.appendChild(card);
   } catch (e) {
@@ -270,9 +271,9 @@ const project_tools = {
   }
  },
  gen_other_project(obj) {
-  other_projects_ul.append(cEl('li', { class: ['pos-rel', 'm-2', 'm-md-4'] },
-   cEl('a', { class: 'text-decoration-none', href: obj.href || '' }, cEl('img', { alt: obj.alt || '', class: ['w-100', 'rounded'], src: obj.imgsrc || '' }),
-    cEl('h5', { class: ['py-2', obj.color, 'd-block', 'w-100', 'position-absolute', 'font-weight-bold', 'text-center'], textContent: obj.innerText || '' }))
+  other_projects_ul.append(cEl('li', { class: 'pos-rel m-2 m-md-4' },
+   cEl('a', { class: 'text-decoration-none', href: obj.href || '' }, cEl('img', { alt: obj.alt || '', class: 'w-100 rounded', src: obj.imgsrc || '' }),
+    cEl('h5', { class: 'py-2 ' + obj.color + ' d-block w-100 position-absolute font-weight-bold text-center', textContent: obj.innerText || '' }))
   ));
  }
 };
@@ -296,7 +297,7 @@ const projects = [
   description: ['Affiliate marketing website', 'Discover high-demand products to promote', 'Promote multiple products simultaneously', 'Get paid weekly for your sales'],
   web_technologies: project_tools.web_trio.concat(['Tailwind CSS', 'React', 'NextJS', 'NodeJS', 'Firebase BaaS']),
   git_link: 'https://github.com/victorOJILE/SwiftEarn',
-  view_link: ''
+  view_link: 'https://victorojile.github.io/SwiftEarn/'
  },
  {
   name: 'Sportsreal',

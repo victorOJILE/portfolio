@@ -388,24 +388,9 @@ header p {
 }
 
 .contact-me {
-	color: white !important;
+ color: white !important;
 	font-size: 1.2rem !important;
-	padding: 0.6rem 0rem !important;
-	width: 80%;
-}
-
-.contact-me span:first-child {
-	display: inline-block;
-	text-align: right;
-	padding-right: 8px;
-	width: 20%;
-}
-
-.contact-me span:last-child {
- padding-left: 8px;
-	display: inline-block;
-	text-align: left;
-	width: 70%;
+	width: 80%
 }
 
 .see-more {
@@ -439,19 +424,6 @@ header p {
 .cm-blue:hover,
 .cm-blue:focus {
 	background: #173D7C !important;
-}
-
-.show {
-	display: block;
-}
-
-.hide {
-	display: none
-}
-
-.sh {
-	display: block;
-	box-shadow: #9ac2e3 1px 2px 4px 1px;
 }
 
 .background {
@@ -558,13 +530,6 @@ header p {
 	letter-spacing: 1px;
 	font-size: 1.3rem;
 	font-family: "Open sans", sans-serif;
-}
-
-.list-grid {
-	display: flexbox;
-	display: flex;
-	align-items: stretch;
-	margin-top: 1rem;
 }
 
 .list {

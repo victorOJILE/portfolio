@@ -143,7 +143,7 @@
 
   binary.addEventListener('keyup', function() {
    decimal.value = binToDeci(this.value);
-   decToHex(); // decimal to hexadecimal
+   decToHex();
   });
 
   // Decimal to binary
@@ -151,8 +151,8 @@
    let arr, reminder = [],
     firstVal = Math.floor(decimalNum / 2);
    arr = firstVal;
-   let div = decimalNum - (firstVal * 2);
-   reminder.unshift(div);
+   reminder.unshift(decimalNum - (firstVal * 2));
+   
    while (arr != 0) {
     let nextVal = Math.floor(arr / 2);
     let divi = arr - (nextVal * 2);

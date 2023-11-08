@@ -1,5 +1,5 @@
 ## Victor Ojile - Web Developer
-![Victor Ojile - Web Developer]()
+![Victor Ojile - Web Developer](https://victorojile.github.io/portfolio/static/images/my_image.jpg)
 
 ## Overview
 
