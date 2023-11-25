@@ -45,30 +45,7 @@
   .sec-div {
    position: relative
   }
-
-  .date-div {
-   padding: 0.75rem;
-   font-weight: 600
-  }
-
-  .date-div input {
-   padding: 0.25rem;
-   border: 1px solid black;
-   border-radius: 2px
-  }
-
-  .error-mes {
-   position: absolute;
-   padding: 2px;
-   color: red;
-   font-size: 11px;
-   font-weight: 700;
-   margin-left: 8px;
-   top: -9px;
-   left: 45px;
-   display: none
-  }
-
+  
   .navBtn {
    display: flex;
    align-items: center;
@@ -141,8 +118,6 @@
   <section class="first-div">
    <h1>Calendar</h1>
    <div class="sec-div">
-    <div class="error-mes">Incorrect input format</div>
-    <div class="date-div">Date: <input type="text" id="input-field" placeholder="January 1, "></div>
     <div class="navBtn">
      <button id="change-year-left" title="Check previous year">«</button>
      <button id="change-month-left" title="Check previous month">‹</button>
@@ -163,70 +138,19 @@
  <script>
   const elId = (id) => document.getElementById(id);
 
-  const input = elId("input-field");
   const changeYearLeft = elId('change-year-left'),
    changeYearRight = elId('change-year-right');
   const changeMonthLeft = elId('change-month-left'),
    changeMonthRight = elId('change-month-right');
   const currentDate = elId('current-date');
   const table = document.getElementsByTagName('table')[0];
-  let date = new Date();
-  let todaysDate = date.getDate();
+  const date = new Date();
+  const todaysDate = date.getDate();
   let month = date.getMonth();
   let currentYear = date.getFullYear();
   const weekName = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const monthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-  const err = document.getElementsByClassName('error-mes')[0];
-
-  function showErr() {
-   err.style.display = 'block';
-  }
-
-  function hideErr() {
-   err.style.display = 'none';
-  }
-
-  const endOfMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-  function inputFocus() {
-   let findM, num;
-   let abc = input.value;
-   let splitVal = abc.split(' ');
-   let n = splitVal[0];
-   let [m, ...rest] = n;
-   findM = m[0].toUpperCase() + rest.join('');
-   findM = monthName.findIndex(a => a == findM);
-   num = splitVal[1].slice(0, splitVal[1].length - 1);
-   if (findM == -1) {
-    showErr();
-    err.innerText = `${splitVal[0]} is not a valid month of the year`;
-    setTimeout(hideErr, 5000);
-    return;
-   } else if (num < 1 || num > 31 || isNaN(num)) {
-    showErr();
-    err.innerText = `${num} is not a valid day of the month`;
-    setTimeout(hideErr, 5000);
-    return;
-   } else if (num > endOfMonth[findM]) {
-    //TODO: Try to replace endOfMonth logic with the JS date API to get the end of the month
-    showErr();
-    err.innerText = `${num} is not a valid day of ${splitVal[0]}`
-    setTimeout(hideErr, 5000);
-    return;
-   } else if (splitVal[2] < 1970 || isNaN(splitVal[2])) {
-    showErr();
-    err.innerText = 'Please, enter a more recent year!';
-    setTimeout(hideErr, 5000);
-    return;
-   } else {
-    currentYear = +splitVal[2];
-    month = findM;
-    render();
-   }
-  }
-  input.addEventListener('blur', inputFocus);
-
+  
   changeYearLeft.addEventListener('click', function() {
    currentYear -= 1;
    render();
@@ -247,28 +171,22 @@
    render();
   });
 
-  function el(type, props) {
+  function el(type, text) {
    let elem = document.createElement(type);
-   if (props) {
-    for (let key in props) {
-     elem[key] = props[key];
-    }
-   }
+   if (text) elem.textContent = text;
+   
    return elem;
   }
 
   function createThead() {
    let tr = el('tr');
-   weekName.forEach(each => tr.append(el('th', { textContent: each })));
+   weekName.forEach(each => tr.appendChild(el('th', each)));
    return tr;
   }
 
   function render() {
-   input.value = `${monthName[month]} ${todaysDate} ${currentYear}`;
    currentDate.innerText = `${monthName[month]} ${currentYear}`;
 
-   let mth = month;
-   if (mth == 0) mth = 12;
    let dayOfMonth = 1;
    let firstDay = new Date(currentYear, month, 1).getDay();
    let lastDayOfLastMonth = new Date(currentYear, month, 0).getDate();
@@ -276,35 +194,31 @@
    lastDayOfThisMonth += firstDay;
 
    table.innerHTML = '';
-   table.append(createThead());
+   table.appendChild(createThead());
 
    for (let i = 0; i < 6; i++) {
     let tr = el('tr');
-    for (let j = 0; j < 7; j++) tr.append(el('td'));
+    for (let j = 0; j < 7; j++) tr.appendChild(el('td'));
 
-    table.append(tr);
+    table.appendChild(tr);
    }
    let day = table.getElementsByTagName('td');
 
    // Last month to this month dates
    for (let i = firstDay - 1; i >= 0; i--) {
-    day[i].innerText = lastDayOfLastMonth;
-    lastDayOfLastMonth--;
+    day[i].innerText = lastDayOfLastMonth--;
    }
    // This month dates
    for (let i = firstDay; i < lastDayOfThisMonth; i++) {
-    let full = `${monthName[month]} ${dayOfMonth} , ${currentYear}`;
     day[i].textContent = dayOfMonth;
     day[i].classList.add('monthDay');
-    day[i].setAttribute('title', full);
-    dayOfMonth++;
+    day[i].setAttribute('title', `${monthName[month]} ${dayOfMonth++} , ${currentYear}`);
    }
 
    dayOfMonth = 1;
    // This month to next month dates
    for (let i = lastDayOfThisMonth; i < day.length; i++) {
-    day[i].textContent = dayOfMonth;
-    dayOfMonth++;
+    day[i].textContent = dayOfMonth++
    }
 
    // Remove unnecessary tRow at the bottom

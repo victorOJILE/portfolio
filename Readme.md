@@ -14,7 +14,7 @@
   
   * My [skills](https://victorojile.github.io/portfolio/#about_me) section where I list out web technologies I am equipped with, that enables me build dynamic and responsive web applications that meet business requirements.
   
-  * Also, a basic contact form section where visitors can [reach out](https://victorojile.github.io/portfolio/#contact-form) by text messages.
+  * Also, a basic contact form section where visitors can [reach out](https://victorojile.github.io/portfolio/#contact-form) by email.
 
 ## License
  This project is licensed under the MIT License. 
