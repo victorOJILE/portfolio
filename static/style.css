@@ -692,8 +692,8 @@ header p {
 }
 
 .contact-form-div {
-	font-family: "open sans";
-	font-size: 0.75rem;
+	font-family: crimson, poppins-light, Roboto, sans-serif;;
+	font-size: 0.95rem;
 	color: #DDDDDD;
 	padding: 10px;
 	max-width: 768px;

@@ -276,7 +276,7 @@ const project_tools = {
 };
 
 function fetchData() {
-	if(!navigator.onLine) {
+	if(navigator.onLine) {
 		fetch('./static/projects.json')
 		.then(res => res.json())
 		.then(res => {
