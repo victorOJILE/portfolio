@@ -42,8 +42,8 @@ function observeElem(elem, isVisble, notVisible, unobserve) {
    rootMargin: "40px",
    threshold: 1.0,
   });
-
- if (elem.constructor.name.toLowerCase() === 'nodelist') {
+	
+ if (elem.constructor.name === 'HTMLCollection') {
   for (let el of elem) {
    observer.observe(el);
   }
@@ -82,12 +82,10 @@ if (IntersectionObserver) {
    window.removeEventListener('scroll', showDownloadCVBtn);
    downloadCVBtn.classList.add('bounceInRight');
   }
- });
- window.addEventListener('scroll', function() {
   if (isVisible(bottom_contact)) {
-   contact_div.style.display = 'none';
+  	contact_div.style.display = 'none';
   } else {
-   contact_div.style.display = 'block';
+  	contact_div.style.display = 'block';
   }
  });
 }
@@ -230,7 +228,8 @@ const project_tools = {
     obj.description.forEach(each => ul.appendChild(cEl('li', { class: 'd-flex' },
      cEl('span', { innerText: each })
     )));
-    descr = cEl('div', { class: 'flex-grow-1' }, cEl('ul', { class: 'list' }, ul),
+    descr = cEl('div', { class: 'flex-grow-1' },
+    	cEl('ul', { class: 'list mb-3' }, ul),
      cEl('p', { innerText: `Web technologies used: ${obj.web_technologies.join(', ')}`, ariaLabel: 'Web technologies used' })
     );
    } else {
@@ -261,7 +260,7 @@ const project_tools = {
     )
    );
 
-   const card = cEl('div', { class: 'pt-2 pb-4 d-flex' }, cardTop);
+   const card = cEl('li', { class: 'pt-2 pb-4 d-flex', ariaLabel: obj.alt_text }, cardTop);
 
    project_row.appendChild(card);
   } catch (e) {
@@ -276,124 +275,47 @@ const project_tools = {
  }
 };
 
-const projects = [
- {
-  name: 'Spider',
-  main_img: 'static/images/Spider.png',
-  alt_text: 'Spider app',
-  id: 'spider-app',
-  description: ['Automatic design to HTML conversion', 'Responsive CSS Styling', 'Code Generation', 'SEO Optimization Features', 'Effortless Collaboration'],
-  web_technologies: project_tools.web_trio.concat(['React', 'NextJS', 'NodeJS', 'Firebase BaaS', 'MongoDB']),
-  git_link: 'https://github.com/victorOJILE/spider',
-  view_link: ''
- },
- {
-  name: 'SwiftEarn',
-  main_img: 'static/images/SwiftEarn.png',
-  alt_text: 'SwiftEarn affiliate marketing website',
-  id: 'swiftearn-app',
-  description: ['Affiliate marketing website', 'Discover high-demand products to promote', 'Promote multiple products simultaneously', 'Get paid weekly for your sales'],
-  web_technologies: project_tools.web_trio.concat(['Tailwind CSS', 'React', 'NextJS', 'NodeJS', 'Firebase BaaS']),
-  git_link: 'https://github.com/victorOJILE/SwiftEarn',
-  view_link: 'https://victorojile.github.io/SwiftEarn/'
- },
- {
-  name: 'Sportsreal',
-  main_img: 'static/images/Sportsreal-image.PNG',
-  alt_text: 'Image showing sportsreal overview',
-  id: 'sportsreal-link',
-  description: ["Get the latest football news update.", "Football fixtures, results and scores.", "Up to date league tables and information.", "Transfer window updates. etc."],
-  web_technologies: project_tools.web_trio.concat(["Bootstrap", "ReactJS", 'NextJS', "NodeJS", "MongoDB"]),
-  git_link: 'https://github.com/victorOJILE/Sportsreal.com',
-  view_link: ''
- },
- {
-  name: 'Financial Markets Charts',
-  main_img: 'static/images/Chart-img.PNG',
-  alt_text: 'Financial markets chart image',
-  id: 'FM-image-link',
-  description: ["Get real-time exchange rate for currency pairs, cryptocurrency and stocks.", "Historical data for currency pairs, cryptocurrency and stocks.", "List of top gaining or losing stocks today. etc."],
-  web_technologies: project_tools.web_trio.concat(["NodeJS", "ExpressJS"]),
-  git_link: 'https://github.com/victorOJILE/Financial-markets-realtime-and-historical-data',
-  view_link: 'https://victorojile.github.io/Financial-markets-realtime-and-historical-data'
- },
- {
-  name: 'The Tetris game',
-  main_img: 'static/images/tetris.png',
-  alt_text: 'Tetris game',
-  id: 'tetris',
-  description: [],
-  web_technologies: project_tools.web_trio.concat(["HTML Canvas"]),
-  git_link: 'https://github.com/victorOJILE/Tetris-game-with-javascript',
-  view_link: 'https://victorojile.github.io/Tetris-game-with-javascript/'
- },
- {
-  name: 'Spotify Login Page Clone',
-  main_img: 'static/images/spotify-signup-page.PNG',
-  alt_text: 'Spotify desktop sign up page',
-  id: 'spotify-sign-up',
-  description: [],
-  web_technologies: project_tools.web_trio,
-  git_link: 'https://github.com/victorOJILE/spotify-desktop-signup-page-clone',
-  view_link: 'projects/spotify-signup.html'
- },
- {
-  name: 'HotForex Landing Page Clone',
-  main_img: 'static/images/Hotforex_img.PNG',
-  alt_text: 'HotForex home page clone',
-  id: 'hotforex-demo-link',
-  description: [],
-  web_technologies: project_tools.web_trio,
-  git_link: 'https://github.com/victorOJILE/Hotforex-landing-page-clone/blob/main/main.js',
-  view_link: ''
- }
-];
-
-const other_projects = [
- {
-  href: 'projects/calendar.html',
-  imgsrc: 'static/images/calendar.png',
-  alt: 'Calendar',
-  innerText: 'Calendar',
-  color: 'reddish'
- },
- {
-  href: 'projects/calculator.html',
-  imgsrc: 'static/images/calculator.png',
-  alt: 'Calculator',
-  innerText: 'Calculator',
-  color: 'greenish'
- },
- {
-  href: 'projects/number-to-word.html',
-  imgsrc: 'static/images/number_to_word.png',
-  alt: 'Number to word converter',
-  innerText: 'Number to word',
-  color: 'bluish'
- },
- {
-  href: 'projects/binary-conv.html',
-  imgsrc: 'static/images/bin_dec_hex.png',
-  alt: 'BIN DEC HEX Converter',
-  innerText: 'BIN DEC HEX Converter',
-  color: 'greenish'
- },
- {
-  href: 'projects/analog-clock.html',
-  imgsrc: 'static/images/analog_clock.png',
-  alt: 'Analog Clock',
-  innerText: 'Analog Clock',
-  color: 'bluish'
- }
-];
-
-projects.forEach(each => project_tools.gen_project(each));
-
-other_projects.forEach(each => project_tools.gen_other_project(each));
+function fetchData() {
+	if(!navigator.onLine) {
+		fetch('./static/projects.json')
+		.then(res => res.json())
+		.then(res => {
+			res.projects.forEach(each => project_tools.gen_project(each));
+			res.other_projects.forEach(each => project_tools.gen_other_project(each));
+		})
+		.catch(err => {
+			setTimeout(fetchData, 5000);
+		});
+	} else {
+		setTimeout(fetchData, 5000);
+	}
+}
+fetchData();
 
 const carousel = elCls('scrollbar')[0];
 const prev = elCls('prev')[0];
 const next = elCls('next')[0];
+
+if(IntersectionObserver) {
+	observeElem(
+		carousel.children,
+		(list) => {
+		if(list == carousel.firstElementChild) {
+			prev.classList.add('d-none');
+		}
+		if (list == carousel.lastElementChild) {
+			next.classList.add('d-none');
+		}
+	},
+	(list) => {
+		if(list == carousel.firstElementChild) {
+			prev.classList.remove('d-none');
+		}
+		if (list == carousel.lastElementChild) {
+			next.classList.remove('d-none');
+		}
+	});
+}
 
 prev.addEventListener("click", () => {
  carousel.scrollBy({

@@ -1,17 +1,15 @@
-
- // Initialize Firebase with your Firebase project's configuration
- const firebaseConfig = {
-  apiKey: "AIzaSyD4H-20-Qzsd88-a6npA6UApgxujI6pbgQ",
-  authDomain: "my-portfolio-victor-ojile.firebaseapp.com",
-  projectId: "my-portfolio-victor-ojile",
-  storageBucket: "my-portfolio-victor-ojile.appspot.com",
-  messagingSenderId: "118354822018",
-  appId: "1:118354822018:web:2f84b7c34739760ed1459b",
-  measurementId: "G-E1ZVZS8ML2"
- };
-
+	// Initialize Firebase with your Firebase project's configuration
+ 
  // Initialize Firebase
- firebase.initializeApp(firebaseConfig);
+ firebase.initializeApp({
+ 	apiKey: "AIzaSyD4H-20-Qzsd88-a6npA6UApgxujI6pbgQ",
+ 	authDomain: "my-portfolio-victor-ojile.firebaseapp.com",
+ 	projectId: "my-portfolio-victor-ojile",
+ 	storageBucket: "my-portfolio-victor-ojile.appspot.com",
+ 	messagingSenderId: "118354822018",
+ 	appId: "1:118354822018:web:2f84b7c34739760ed1459b",
+ 	measurementId: "G-E1ZVZS8ML2"
+ });
  const analytics = firebase.analytics();
 
  function checkCookie(key) {
@@ -28,7 +26,9 @@
 
   document.cookie = "page_view" + encodeURIComponent(new URL(location.href).pathname) + "=1;max-age=3600";
  }
-
+	
+	trackUniqueVisitors();
+	
  function trackClick(info) {
   if (checkCookie(info)) return;
 
@@ -38,5 +38,3 @@
 
   document.cookie = info + "=1;max-age=3600";
  }
-
- window.addEventListener('load', trackUniqueVisitors);

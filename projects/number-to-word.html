@@ -95,7 +95,8 @@ const numInWords = {
  8: 'eight',
  9: 'nine',
  '.': ' point',
- '-': 'minus '
+ '-': 'minus ',
+ '+': 'plus'
 };
 
 const tenToTwenty = ['', '', '', '', '', '', '', '', '', '', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'
@@ -192,7 +193,14 @@ function convertNumToWord(e) {
   });
 
   word.push(decimalUnits.join(' '));
-  answer.textContent = `${sentenceCase(word.join(''))}.`;
+  
+  word = word.join('').trim();
+  // Reusing a variable, checking if it ends with a comma
+  indexOfPoint = word.match(/(.*)[,]/);
+  
+  if(indexOfPoint) word = indexOfPoint[1];
+  
+  answer.textContent = `${sentenceCase(word)}.`;
  } catch (e) {
   console.error(e);
  }

@@ -492,7 +492,7 @@ header p {
 	background: #0F1622 url(./images/nature-2608274_1283.jpg);
 }
 
-.project-row>div {
+.project-row>li {
 	padding: 10px;
 	margin: 10px 10px 40px;
 }
@@ -502,7 +502,7 @@ header p {
 	width: 100%;
 }
 
-.project-row>div img {
+.project-row>li img {
 	border: 3px solid whitesmoke;
 	width: 80%;
 	border-radius: 12px;
@@ -510,7 +510,7 @@ header p {
 	transition: 800ms;
 }
 
-.project-row>div img:hover {
+.project-row>li img:hover {
 	transform: scale(1.02);
 	box-shadow: 0px 5px 8px 0px #594F8E;
 }
@@ -521,19 +521,19 @@ header p {
 	font-size: 0.85rem;
 }
 
-.project-row>div h3,
+.project-row>li h3,
 .list li {
 	color: var(--text-color1);
 }
 
-.project-row>div h3 {
+.project-row>li h3 {
 	letter-spacing: 1px;
 	font-size: 1.3rem;
 	font-family: "Open sans", sans-serif;
 }
 
 .list {
-	list-style-type: none;
+	list-style-type: none
 }
 
 .horizontalline {
@@ -553,13 +553,13 @@ header p {
 	font-family: "Open sans", sans-serif;
 }
 
-.project-row>div p {
+.project-row>li p {
 	color: var(--text-color2);
 	line-height: 160%;
 	font-size: 0.85rem;
 }
 
-.project-row>div a {
+.project-row>li a {
 	color: #3B3E54;
 	margin-top: 2rem;
 	font-size: 1.2rem;
@@ -580,8 +580,8 @@ header p {
 	font-size: 0.78rem !important
 }
 
-.project-row>div a:hover,
-.project-row>div a:focus {
+.project-row>li a:hover,
+.project-row>li a:focus {
 	opacity: 0.7;
 }
 
@@ -692,8 +692,8 @@ header p {
 }
 
 .contact-form-div {
-	font-family: "crimson", 'Roboto', sans-serif;
-	font-size: 0.95rem;
+	font-family: "open sans";
+	font-size: 0.75rem;
 	color: #DDDDDD;
 	padding: 10px;
 	max-width: 768px;
@@ -714,7 +714,6 @@ header p {
 .contact-form-div input,
 .contact-form-div textarea {
 	font-size: 0.75rem;
-	font-family: Roboto, sans-serif;
 	color: #DDDDDD;
 	background-color: #00000000;
 	border: 1px solid #6e6e6e !important;
