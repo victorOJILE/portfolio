@@ -713,6 +713,7 @@ header p {
 
 .contact-form-div input,
 .contact-form-div textarea {
+	font-family: "open sans", roboto, sans-serif;
 	font-size: 0.75rem;
 	color: #DDDDDD;
 	background-color: #00000000;
