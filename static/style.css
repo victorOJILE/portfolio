@@ -344,7 +344,6 @@ body {
 
 header {
 	min-height: 650px;
-	height: 100vh;
 	max-width: 1400px;
 	margin: 0 auto;
 	background: url(./images/nature-2608274_1282.jpg), repeating-linear-gradient(136deg, #1F437C 48px, #000034 50px);
@@ -862,11 +861,6 @@ footer small {
 		text-decoration: underline;
 	}
 
-	header {
-		height: 90vh;
-		max-height: 700px !important;
-	}
-
 	header h1 {
 		padding: 6rem 0px 30px !important;
 		padding-bottom: 0px;
@@ -907,6 +901,6 @@ footer small {
 
 @media screen and (min-width: 1000px) {
 	header p {
-		font-size: 2rem;
+		font-size: 1.6rem;
 	}
 }

@@ -277,19 +277,129 @@ window.addEventListener('DOMContentLoaded', function() {
 	};
 
 	function fetchData() {
-		if (navigator.onLine) {
-			fetch('./static/projects.json')
-				.then(res => res.json())
-				.then(res => {
-					res.projects.forEach(each => project_tools.gen_project(each));
-					res.other_projects.forEach(each => project_tools.gen_other_project(each));
-				})
-				.catch(err => {
-					setTimeout(fetchData, 5000);
-				});
-		} else {
-			setTimeout(fetchData, 5000);
+		const projects = {
+			"projects": [
+				{
+					"name": "Spider",
+					"main_img": "static/images/Spider.png",
+					"alt_text": "Spider app",
+					"id": "spider-app",
+					"description": ["Automatic design to HTML conversion", "Responsive CSS Styling", "Code Generation", "SEO Optimization Features", "Effortless Collaboration"],
+					"web_technologies": ["HTML", "CSS", "JavaScript", "React", "NextJS", "NodeJS", "Firebase BaaS", "MongoDB"],
+					"git_link": "https://github.com/victorOJILE/spider",
+					"view_link": ""
+				},
+				{
+					"name": "Grestor",
+					"main_img": "static/images/grestor_overview.JPG",
+					"alt_text": "Grestor affiliate marketing website",
+					"id": "grestor-app",
+					"description": ["Affiliate marketing website", "Discover high-demand products to promote", "Promote multiple products simultaneously", "Get paid weekly for your sales"],
+					"web_technologies": ["HTML", "CSS", "JavaScript", "Tailwind CSS", "React", "NextJS", "NodeJS", "Firebase BaaS"],
+					"git_link": "https://github.com/victorOJILE/SwiftEarn",
+					"view_link": "https://grestor.vercel.app/"
+				},
+				{
+					"name": "Sportsreal",
+					"main_img": "static/images/Sportsreal-image.PNG",
+					"alt_text": "Sportsreal",
+					"id": "sportsreal-link",
+					"description": ["Get the latest football news update.", "Football fixtures, results and scores.", "Up to date league tables and information.", "Transfer window updates. etc."],
+					"web_technologies": ["HTML", "CSS", "JavaScript", "Bootstrap", "ReactJS", "NextJS", "NodeJS", "MongoDB"],
+					"git_link": "https://github.com/victorOJILE/Sportsreal.com",
+					"view_link": ""
+				},
+				{
+					"name": "Financial Markets Charts",
+					"main_img": "static/images/Chart-img.PNG",
+					"alt_text": "Financial markets chart",
+					"id": "FM-image-link",
+					"description": ["Get real-time exchange rate for currency pairs, cryptocurrency and stocks.", "Historical data for currency pairs, cryptocurrency and stocks.", "List of top gaining or losing stocks today. etc."],
+					"web_technologies": ["HTML", "CSS", "JavaScript", "NodeJS", "ExpressJS"],
+					"git_link": "https://github.com/victorOJILE/Financial-markets-realtime-and-historical-data",
+					"view_link": "https://victorojile.github.io/Financial-markets-realtime-and-historical-data"
+				},
+				{
+					"name": "The Tetris game",
+					"main_img": "static/images/tetris.png",
+					"alt_text": "Tetris game",
+					"id": "tetris",
+					"description": [],
+					"web_technologies": ["HTML", "CSS", "JavaScript", "HTML Canvas"],
+					"git_link": "https://github.com/victorOJILE/Tetris-game-with-javascript",
+					"view_link": "https://victorojile.github.io/Tetris-game-with-javascript/"
+				},
+				{
+					"name": "Bet9ja Desktop Homepage Clone",
+					"main_img": "static/images/Bet9ja_Desktop_Design_2.JPG",
+					"alt_text": "Bet9ja",
+					"id": "bet9ja",
+					"description": [],
+					"web_technologies": ["HTML", "CSS", "JavaScript"],
+					"git_link": "https://github.com/victorOJILE/Tetris-game-with-javascript",
+					"view_link": "https://victorojile.github.io/Tetris-game-with-javascript/"
+				},
+				{
+					"name": "Spotify Login Page Clone",
+					"main_img": "static/images/spotify_signup.JPG",
+					"alt_text": "Spotify desktop sign up page",
+					"id": "spotify-sign-up",
+					"description": [],
+					"web_technologies": ["HTML", "CSS", "JavaScript"],
+					"git_link": "https://github.com/victorOJILE/portfolio/blob/main/projects/spotify-signup.html",
+					"view_link": "projects/spotify-signup.html"
+				},
+				{
+					"name": "HotForex Landing Page Clone",
+					"main_img": "static/images/Hotforex_img.PNG",
+					"alt_text": "HotForex home page clone",
+					"id": "hotforex-demo-link",
+					"description": [],
+					"web_technologies": ["HTML", "CSS", "JavaScript"],
+					"git_link": "https://github.com/victorOJILE/Hotforex-landing-page-clone/blob/main/main.js",
+					"view_link": ""
+					}
+				],
+			"other_projects": [
+				{
+					"href": "projects/calendar.html",
+					"imgsrc": "static/images/calendar.png",
+					"alt": "Calendar",
+					"innerText": "Calendar",
+					"color": "reddish"
+		 },
+				{
+					"href": "projects/calculator.html",
+					"imgsrc": "static/images/calculator.png",
+					"alt": "Calculator",
+					"innerText": "Calculator",
+					"color": "greenish"
+		 },
+				{
+					"href": "projects/number-to-word.html",
+					"imgsrc": "static/images/number_to_word.png",
+					"alt": "Number to word converter",
+					"innerText": "Number to word",
+					"color": "bluish"
+		 },
+				{
+					"href": "projects/binary-conv.html",
+					"imgsrc": "static/images/bin_dec_hex.png",
+					"alt": "BIN DEC HEX Converter",
+					"innerText": "BIN DEC HEX Converter",
+					"color": "greenish"
+		 },
+				{
+					"href": "projects/analog-clock.html",
+					"imgsrc": "static/images/analog_clock.png",
+					"alt": "Analog Clock",
+					"innerText": "Analog Clock",
+					"color": "bluish"
+		 }
+			]
 		}
+		projects.projects.forEach(each => project_tools.gen_project(each));
+		projects.other_projects.forEach(each => project_tools.gen_other_project(each));
 	}
 	fetchData();
 
