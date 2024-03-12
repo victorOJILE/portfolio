@@ -139,7 +139,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			if (!message.trim()) return alert('Please enter a message before submitting!');
 			let submit = form.getElementsByTagName('button')[0];
 
-			submit.innerText = 'Sending!';
+			submit.innerText = 'Sending...';
 
 			emailjs.send("service_af1tg34", "template_hd99hbp", {
 					name,
@@ -278,7 +278,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
 	function fetchData() {
 		const projects = {
-			"projects": [
+			"projects": [/*
 				{
 					"name": "Spider",
 					"main_img": "static/images/Spider.png",
@@ -288,7 +288,7 @@ window.addEventListener('DOMContentLoaded', function() {
 					"web_technologies": ["HTML", "CSS", "JavaScript", "React", "NextJS", "NodeJS", "Firebase BaaS", "MongoDB"],
 					"git_link": "https://github.com/victorOJILE/spider",
 					"view_link": ""
-				},
+				},*/
 				{
 					"name": "Grestor",
 					"main_img": "static/images/grestor_overview.JPG",
@@ -301,23 +301,13 @@ window.addEventListener('DOMContentLoaded', function() {
 				},
 				{
 					"name": "Sportsreal",
-					"main_img": "static/images/Sportsreal-image.PNG",
+					"main_img": "static/images/sportsreal_img.JPG",
 					"alt_text": "Sportsreal",
 					"id": "sportsreal-link",
 					"description": ["Get the latest football news update.", "Football fixtures, results and scores.", "Up to date league tables and information.", "Transfer window updates. etc."],
-					"web_technologies": ["HTML", "CSS", "JavaScript", "Bootstrap", "ReactJS", "NextJS", "NodeJS", "MongoDB"],
-					"git_link": "https://github.com/victorOJILE/Sportsreal.com",
-					"view_link": ""
-				},
-				{
-					"name": "Financial Markets Charts",
-					"main_img": "static/images/Chart-img.PNG",
-					"alt_text": "Financial markets chart",
-					"id": "FM-image-link",
-					"description": ["Get real-time exchange rate for currency pairs, cryptocurrency and stocks.", "Historical data for currency pairs, cryptocurrency and stocks.", "List of top gaining or losing stocks today. etc."],
-					"web_technologies": ["HTML", "CSS", "JavaScript", "NodeJS", "ExpressJS"],
-					"git_link": "https://github.com/victorOJILE/Financial-markets-realtime-and-historical-data",
-					"view_link": "https://victorojile.github.io/Financial-markets-realtime-and-historical-data"
+					"web_technologies": ["HTML", "CSS", "JavaScript", "Tailwind CSS", "ReactJS", "NextJS", "NodeJS", "Firebase BaaS"],
+					"git_link": "https://github.com/victorOJILE/Sportsreal",
+					"view_link": "https://sportsreal.vercel.app"
 				},
 				{
 					"name": "The Tetris game",
@@ -328,7 +318,17 @@ window.addEventListener('DOMContentLoaded', function() {
 					"web_technologies": ["HTML", "CSS", "JavaScript", "HTML Canvas"],
 					"git_link": "https://github.com/victorOJILE/Tetris-game-with-javascript",
 					"view_link": "https://victorojile.github.io/Tetris-game-with-javascript/"
-				},
+				},/*
+				{
+					"name": "Financial Markets Charts",
+					"main_img": "static/images/Chart-img.PNG",
+					"alt_text": "Financial markets chart",
+					"id": "FM-image-link",
+					"description": ["Get real-time exchange rate for currency pairs, cryptocurrency and stocks.", "Historical data for currency pairs, cryptocurrency and stocks.", "List of top gaining or losing stocks today. etc."],
+					"web_technologies": ["HTML", "CSS", "JavaScript", "NodeJS", "ExpressJS"],
+					"git_link": "https://github.com/victorOJILE/Financial-markets-realtime-and-historical-data",
+					"view_link": "https://victorojile.github.io/Financial-markets-realtime-and-historical-data"
+				},*/
 				{
 					"name": "Bet9ja Desktop Homepage Clone",
 					"main_img": "static/images/Bet9ja_Desktop_Design_2.JPG",
@@ -426,6 +426,8 @@ window.addEventListener('DOMContentLoaded', function() {
 					next.classList.remove('d-none');
 				}
 			});
+	} else {
+		for(let list of carousel.children) list.classList.remove('d-none');
 	}
 
 	prev.addEventListener("click", () => {
