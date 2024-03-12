@@ -336,8 +336,8 @@ window.addEventListener('DOMContentLoaded', function() {
 					"id": "bet9ja",
 					"description": [],
 					"web_technologies": ["HTML", "CSS", "JavaScript"],
-					"git_link": "https://github.com/victorOJILE/Tetris-game-with-javascript",
-					"view_link": "https://victorojile.github.io/Tetris-game-with-javascript/"
+					"git_link": "https://github.com/victorOJILE/shop_bet9ja_clone",
+					"view_link": "https://victorojile.github.io/shop_bet9ja_clone/"
 				},
 				{
 					"name": "Spotify Login Page Clone",
