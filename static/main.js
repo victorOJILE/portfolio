@@ -330,6 +330,26 @@ window.addEventListener('DOMContentLoaded', function() {
 					"view_link": "https://victorojile.github.io/Financial-markets-realtime-and-historical-data"
 				},*/
 				{
+					"name": "Easybank Landing Page",
+					"main_img": "static/images/easybank.png",
+					"alt_text": "Easybank Landing Page",
+					"id": "easyBank",
+					"description": [],
+					"web_technologies": ["HTML", "CSS", "JavaScript", "React", "NextJS", "Git/GitHub"],
+					"git_link": "https://victorojile.github.io/easybank/",
+					"view_link": "https://victorojile.github.io/easybank/"
+				},
+				{
+					"name": "LOSANGELES MOUNTAINS",
+					"main_img": "static/images/coalition_test.png",
+					"alt_text": "losangeles mountain s",
+					"id": "coalition",
+					"description": [],
+					"web_technologies": ["HTML", "CSS", "JavaScript", "React", "NextJS", "Git/GitHub"],
+					"git_link": "https://github.com/victorOJILE/losangeles_mountains",
+					"view_link": "https://victorojile.github.io/losangeles_mountains/"
+				},
+				{
 					"name": "Bet9ja Desktop Homepage Clone",
 					"main_img": "static/images/Bet9ja_Desktop_Design_2.JPG",
 					"alt_text": "Bet9ja",
